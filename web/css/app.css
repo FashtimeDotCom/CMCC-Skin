@@ -1,0 +1,178 @@
+
+/** 通用元素样式 **/
+
+h1 {
+	font-size: 1.8em;
+}
+
+h2 {
+	font-size: 1.4em;
+}
+
+h3, h4 {
+	font-size: 1.2em;
+}
+
+h5, h6 {
+	font-size: 1.1em;
+}
+
+img {
+	width: 100%;
+}
+
+header h1, header h2 {
+	text-align: center;
+}
+
+header h1 {
+	margin: 0;
+	padding: 10px;
+	background: rgb(145, 197, 23);
+	color: #FFF;
+}
+
+.admin header h1 {
+	background: rgb(23, 132, 208);
+}
+
+/** 通用样式 **/
+
+.table {
+	width: 100%;
+	margin-bottom: 0;
+}
+
+.table>thead>tr>th, .table>tfoot>tr>th {
+	background: rgb(230, 230, 230);
+}
+
+.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+	border: 1px solid rgb(9, 133, 209);
+}
+
+.table-bordered.summary>thead>tr>th, .table-bordered.summary>tbody>tr>th, .table-bordered.summary>tfoot>tr>th, .table-bordered.summary>thead>tr>td, .table-bordered.summary>tbody>tr>td, .table-bordered.summary>tfoot>tr>td {
+	border: 1px solid #FFF;
+}
+
+.table.summary {
+	color: #FFF;
+}
+
+.table.summary th {
+	background: rgb(145, 197, 23);
+	text-align: center;
+}
+
+.table.summary td {
+	background: rgb(9, 133, 209);
+}
+
+.btn {
+	border-radius: 0;
+	border: none;
+	padding: 5px 20px;
+}
+
+.btn-success {
+	background: rgb(145, 197, 25);
+}
+
+/** 特定页面样式 **/
+
+.outlet #pictures img {
+	width: 100%;
+}
+
+.setupsample h3 {
+	text-align: center;
+}
+
+.setupsample .sample {
+	margin: auto;
+	width: 90%;
+}
+
+.setupsample .sample img {
+	width: 100%;
+	display: block;
+	margin: auto;
+}
+
+.setupsample .correct-sample h3 {
+	color: rgb(145, 192, 37);
+}
+
+.setupsample .correct-sample {
+	border: 1px solid rgb(145, 192, 37);
+}
+
+.setupsample .mark {
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	display: block;
+	height: 150px;
+	width: 150px;
+	margin: auto;
+}
+
+.setupsample .correct-sample .mark {
+	background-image: url('/img/correct-mark.png');
+}
+
+.setupsample .wrong-sample .mark {
+	background-image: url('/img/wrong-mark.png');
+}
+
+header.recept h1 {
+	color: rgb(9, 133, 209);
+	background: #FFF;
+}
+
+.table tr.expanded td {
+	padding: 0;
+}
+
+.table.detail>tbody>tr>th {
+	background: rgb(145, 197, 26);
+}
+
+.table.detail>tbody>tr>td {
+	background: rgb(230, 230, 230);
+}
+
+.table.detail>tbody>tr>td.active, .table.detail>tbody>tr>th.active {
+	background: rgb(23, 132, 208);
+}
+
+.table.detail {
+	font-size: 0.8em;
+}
+
+.table.detail th {
+	padding: 5px;
+}
+
+.table.detail td {
+	height: 40px;
+}
+
+.framereceiptconfirmation #receipt-detail .sample-picture {
+	height: 60px;
+	max-width: 60px;
+}
+
+.resultupload h2 {
+	text-align:  center;
+	color: #FFF;
+	background: rgb(146, 197, 26);
+	padding: 5px;
+	margin: 0;
+}
+
+.resultupload .row>div {
+	padding: 0;
+	text-align: center;
+}
+
