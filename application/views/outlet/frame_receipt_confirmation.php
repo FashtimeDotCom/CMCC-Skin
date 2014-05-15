@@ -158,7 +158,7 @@
 			<td></td>
 		</tr>
                 <tr>
-			<td>16/td>
+			<td>16</td>
 			<td>中岛台卡</td>
 			<td><img src="/img/QQ20140515-16.jpg" class="sample-picture"></td>
 			<td>6</td>
