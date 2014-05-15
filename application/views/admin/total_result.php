@@ -13,13 +13,66 @@
 		</tr>
 	</thead>
 	<tbody>
-		<?php for($i = 0; $i<200; $i ++){ ?>
 		<tr>
-			<td>南区 >></td>
+			<td><a href="<?=site_url()?>admin/regionresult">南区 <span class="arrow">&raquo;</span></a></td>
 			<td class="check"></td>
 			<td class="check"></td>
 		</tr>
-		<?php } ?>
+		<tr>
+			<td><a href="<?=site_url()?>admin/regionresult">北区 <span class="arrow">&raquo;</span></a></td>
+			<td class="check"></td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td><a href="<?=site_url()?>admin/regionresult">西区 <span class="arrow">&raquo;</span></a></td>
+			<td class="check"></td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td><a href="<?=site_url()?>admin/regionresult">浦东区 <span class="arrow">&raquo;</span></a></td>
+			<td class="check"></td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td><a href="<?=site_url()?>admin/regionresult">奉贤区 <span class="arrow">&raquo;</span></a></td>
+			<td class="check"></td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td><a href="<?=site_url()?>admin/regionresult">金山区 <span class="arrow">&raquo;</span></a></td>
+			<td class="check"></td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td><a href="<?=site_url()?>admin/regionresult">闵行区 <span class="arrow">&raquo;</span></a></td>
+			<td class="check"></td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td><a href="<?=site_url()?>admin/regionresult">嘉定区 <span class="arrow">&raquo;</span></a></td>
+			<td class="check"></td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td><a href="<?=site_url()?>admin/regionresult">青浦区 <span class="arrow">&raquo;</span></a></td>
+			<td class="check"></td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td><a href="<?=site_url()?>admin/regionresult">松江区 <span class="arrow">&raquo;</span></a></td>
+			<td class="check"></td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td><a href="<?=site_url()?>admin/regionresult">宝山区 <span class="arrow">&raquo;</span></a></td>
+			<td class="check"></td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td><a href="<?=site_url()?>admin/regionresult">崇明区 <span class="arrow">&raquo;</span></a></td>
+			<td class="check"></td>
+			<td class="check"></td>
+		</tr>
 	</tbody>
 </table>
 

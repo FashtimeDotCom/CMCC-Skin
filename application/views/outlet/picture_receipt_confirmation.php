@@ -64,12 +64,12 @@
 							<td></td>
 						</tr>
 						<tr>
-							<th>画面编号：A1</th>
-							<th>画面编号：A2</th>
-							<th>画面编号：B1</th>
-							<th>画面编号：B2</th>
-							<th>画面编号：B3</th>
-							<th>画面编号：B4</th>
+							<th>画面编号：B5</th>
+							<th>画面编号：B6</th>
+							<th>画面编号：B7</th>
+							<th>画面编号：C1</th>
+							<th>画面编号：C2</th>
+							<th>画面编号：C3</th>
 						</tr>
 						<tr>
 							<td></td>
@@ -80,12 +80,12 @@
 							<td></td>
 						</tr>
 						<tr>
-							<th>画面编号：A1</th>
-							<th>画面编号：A2</th>
-							<th>画面编号：B1</th>
-							<th>画面编号：B2</th>
-							<th>画面编号：B3</th>
-							<th>画面编号：B4</th>
+							<th>画面编号：M1</th>
+							<th>画面编号：M2</th>
+							<th>画面编号：M3</th>
+							<th>画面编号：M4</th>
+							<th>画面编号：M5</th>
+							<th>画面编号：M6</th>
 						</tr>
 						<tr>
 							<td></td>
@@ -96,12 +96,12 @@
 							<td></td>
 						</tr>
 						<tr>
-							<th>画面编号：A1</th>
-							<th>画面编号：A2</th>
-							<th>画面编号：B1</th>
-							<th>画面编号：B2</th>
-							<th>画面编号：B3</th>
-							<th>画面编号：B4</th>
+							<th>画面编号：M7</th>
+							<th>画面编号：M8</th>
+							<th>画面编号：Z1</th>
+							<th>画面编号：Z2</th>
+							<th>画面编号：Z3</th>
+							<th>画面编号：Z4</th>
 						</tr>
 						<tr>
 							<td></td>
@@ -115,7 +115,6 @@
 				</table>
 			</td>
 		</tr>
-		<?php for($i = 0; $i < 10; $i++){ ?>
 		<tr>
 			<td>落地灯箱（大）</td>
 			<td>775x1175</td>
@@ -123,7 +122,90 @@
 			<td>灯片</td>
 			<td class="check"></td>
 		</tr>
-		<?php } ?>
+		<tr>
+			<td>落地海报架(小)</td>
+			<td>600x900</td>
+			<td>2<span class="caret"></span></td>
+			<td>写真雪弗板+磁条</td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td>上墙灯箱(大) </td>
+			<td>2375x1175</td>
+			<td>2<span class="caret"></span></td>
+			<td>加厚正喷灯片</td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td>落地海报架(大)</td>
+			<td>900x1800</td>
+			<td>2<span class="caret"></span></td>
+			<td>写真雪弗板+磁条</td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td>中岛销售桌插片</td>
+			<td>1190x145</td>
+			<td>2<span class="caret"></span></td>
+			<td>写真雪弗板(2片)</td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td>终端配件柜（上部）</td>
+			<td>980x750</td>
+			<td>2<span class="caret"></span></td>
+			<td>写真雪弗板+磁条</td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td>有机台卡(中岛立式)</td>
+			<td>210x290</td>
+			<td>3<span class="caret"></span></td>
+			<td>写真</td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td>上墙灯箱(大)</td>
+			<td>2375x1175</td>
+			<td>4<span class="caret"></span></td>
+			<td>加厚正喷灯片</td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td>落地海报架(大)</td>
+			<td>900x1800</td>
+			<td>2<span class="caret"></span></td>
+			<td>写真雪弗板+磁条</td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td>落地海报架(大)</td>
+			<td>900x500</td>
+			<td>2<span class="caret"></span></td>
+			<td>写真雪弗板+磁条</td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td>有机台卡(平躺式)</td>
+			<td>230x320</td>
+			<td>6<span class="caret"></span></td>
+			<td>写真</td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td>有机台卡(立式)</td>
+			<td>220x300</td>
+			<td>6<span class="caret"></span></td>
+			<td>写真</td>
+			<td class="check"></td>
+		</tr>
+		<tr>
+			<td>资料架(中)</td>
+			<td>295x400</td>
+			<td>4<span class="caret"></span></td>
+			<td>写真雪弗板+磁条</td>
+			<td class="check"></td>
+		</tr>
 	</tbody>
 	<tfoot>
 		<tr>
