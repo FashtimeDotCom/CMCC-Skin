@@ -20,7 +20,7 @@
 		</tr>
 		<tr>
 			<th>签收须知</th>
-			<td colspan="3">确认所收物料及数量，确认完毕后，在该物料右侧确认栏中点击以勾选。所有物料全部确认勾选后，才能点击确认签收。</td>
+			<td colspan="3" class="text-left">确认所收物料及数量，确认完毕后，在该物料右侧确认栏中点击以勾选。所有物料全部确认勾选后，才能点击确认签收。</td>
 		</tr>
 	</tbody>
 </table>
@@ -50,9 +50,19 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<th colspan="6" class="text-center"><button type="button" id="finish" class="btn btn-success">签收完成</button></th>
+			<th colspan="6" class="text-center"><a id="finish" href="<?=site_url()?>outlet/picturereceiptconfirmation" class="btn btn-success">签收完成</a></th>
 		</tr>
 	</tfoot>
 </table>
+
+<script type="text/javascript">
+(function($){
+	$(function(){
+		$('td.check').on('click', function(){
+			$(this).toggleClass('checked');
+		});
+	});
+})(jQuery);
+</script>
 
 <?php $this->view('footer'); ?>

@@ -15,7 +15,7 @@
 	<tbody>
 		<?php for($i = 0; $i<200; $i ++){ ?>
 		<tr>
-			<td>大木桥路营业厅 >></td>
+			<td><a href="<?=site_url()?>admin/outletresult">大木桥路营业厅 <span class="arrow">&raquo;</a></a></td>
 			<td></td>
 			<td></td>
 		</tr>

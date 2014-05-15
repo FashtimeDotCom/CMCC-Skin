@@ -10,7 +10,7 @@
 			<th colspan="2">淮海中路营业厅点位图</th>
 		</tr>
 		<tr>
-			<th colspan="2"><img src="/image/outlet-layout.jpg"></th>
+			<th colspan="2"><a href="<?=site_url()?>img/map.jpg"><img src="<?=site_url()?>img/map.jpg"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -40,48 +40,48 @@
 	<div class="row">
 		<div class="col-xs-6">
 			<h2>入口区</h2>
-			<img src="/img/换装发布表格1-1.jpg">
+			<a href="<?=site_url()?>img/upload.jpg"><img src="<?=site_url()?>img/upload.jpg"></a>
 		</div>
 
 		<div class="col-xs-6">
 			<h2>入口区</h2>
-			<img src="/img/换装发布表格1-1.jpg">
+			<a href="<?=site_url()?>img/upload.jpg"><img src="<?=site_url()?>img/upload.jpg"></a>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-xs-6">
 			<h2>销售区</h2>
-			<img src="/img/换装发布表格1-1.jpg">
+			<a href="<?=site_url()?>img/upload.jpg"><img src="<?=site_url()?>img/upload.jpg"></a>
 		</div>
 
 		<div class="col-xs-6">
 			<h2>销售区</h2>
-			<img src="/img/换装发布表格1-1.jpg">
+			<a href="<?=site_url()?>img/upload.jpg"><img src="<?=site_url()?>img/upload.jpg"></a>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-xs-6">
 			<h2>业务咨询区</h2>
-			<img src="/img/换装发布表格1-1.jpg">
+			<a href="<?=site_url()?>img/upload.jpg"><img src="<?=site_url()?>img/upload.jpg"></a>
 		</div>
 
 		<div class="col-xs-6">
 			<h2>业务咨询区</h2>
-			<img src="/img/换装发布表格1-1.jpg">
+			<a href="<?=site_url()?>img/upload.jpg"><img src="<?=site_url()?>img/upload.jpg"></a>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-xs-6">
 			<h2>业务办理区</h2>
-			<img src="/img/换装发布表格1-1.jpg">
+			<a href="<?=site_url()?>img/upload.jpg"><img src="<?=site_url()?>img/upload.jpg"></a>
 		</div>
 
 		<div class="col-xs-6">
 			<h2>业务办理区</h2>
-			<img src="/img/换装发布表格1-1.jpg">
+			<a href="<?=site_url()?>img/upload.jpg"><img src="<?=site_url()?>img/upload.jpg"></a>
 		</div>
 	</div>
 </div>

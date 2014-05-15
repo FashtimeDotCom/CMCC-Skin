@@ -20,7 +20,7 @@
 		</tr>
 		<tr>
 			<th>签收须知</th>
-			<td colspan="3">确认所收物料及数量，确认完毕后，在该物料右侧确认栏中点击以勾选。所有物料全部确认勾选后，才能点击确认签收。</td>
+			<td colspan="3" class="text-left">确认所收物料及数量，确认完毕后，在该物料右侧确认栏中点击以勾选。所有物料全部确认勾选后，才能点击确认签收。</td>
 		</tr>
 	</tbody>
 </table>
@@ -39,7 +39,7 @@
 		<tr>
 			<td>悬挂灯箱（小）</td>
 			<td>585x835</td>
-			<td>2<span class="caret"></span></td>
+			<td class="dropdown">2<span class="caret"></span></td>
 			<td>灯片</td>
 			<td class="check"></td>
 		</tr>
@@ -127,9 +127,27 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<th colspan="5" class="text-center"><button type="button" id="finish" class="btn btn-success">签收完成</button></th>
+			<th colspan="5" class="text-center"><a id="finish" href="<?=site_url()?>outlet/resultupload" class="btn btn-success">签收完成</a></th>
 		</tr>
 	</tfoot>
 </table>
+
+<script type="text/javascript">
+(function($){
+	$(function(){
+		$('td.check').on('click', function(){
+			$(this).toggleClass('checked');
+		});
+		$('td.dropdown').on('click', function(){
+			var expand = $(this).parent('tr').next('tr.expanded');
+			if(expand.is(':hidden')){
+				expand.show(300);
+			}else{
+				expand.hide(300);
+			}
+		});
+	});
+})(jQuery);
+</script>
 
 <?php $this->view('footer'); ?>
