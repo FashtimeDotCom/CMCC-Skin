@@ -205,6 +205,10 @@ td.check.checked {
 	margin: 0;
 }
 
+.resultupload .row {
+	margin: 0;
+}
+
 .resultupload .row>div {
 	padding: 0;
 	text-align: center;
