@@ -38,48 +38,48 @@
 </header>
 <div class="resultupload">
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-xs-12">
 			<h2>入口区</h2>
 			<a href="<?=site_url()?>img/upload.jpg"><img src="<?=site_url()?>img/upload.jpg"></a>
 		</div>
 
-		<div class="col-xs-6">
+		<div class="col-xs-12">
 			<h2>入口区</h2>
 			<a href="<?=site_url()?>img/upload.jpg"><img src="<?=site_url()?>img/upload.jpg"></a>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-xs-12">
 			<h2>销售区</h2>
 			<a href="<?=site_url()?>img/upload.jpg"><img src="<?=site_url()?>img/upload.jpg"></a>
 		</div>
 
-		<div class="col-xs-6">
+		<div class="col-xs-12">
 			<h2>销售区</h2>
 			<a href="<?=site_url()?>img/upload.jpg"><img src="<?=site_url()?>img/upload.jpg"></a>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-xs-12">
 			<h2>业务咨询区</h2>
 			<a href="<?=site_url()?>img/upload.jpg"><img src="<?=site_url()?>img/upload.jpg"></a>
 		</div>
 
-		<div class="col-xs-6">
+		<div class="col-xs-12">
 			<h2>业务咨询区</h2>
 			<a href="<?=site_url()?>img/upload.jpg"><img src="<?=site_url()?>img/upload.jpg"></a>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-xs-12">
 			<h2>业务办理区</h2>
 			<a href="<?=site_url()?>img/upload.jpg"><img src="<?=site_url()?>img/upload.jpg"></a>
 		</div>
 
-		<div class="col-xs-6">
+		<div class="col-xs-12">
 			<h2>业务办理区</h2>
 			<a href="<?=site_url()?>img/upload.jpg"><img src="<?=site_url()?>img/upload.jpg"></a>
 		</div>
