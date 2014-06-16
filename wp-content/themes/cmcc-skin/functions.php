@@ -1,6 +1,74 @@
 <?php
 add_action('init', function(){
+	
 	show_admin_bar(false);
+	
+	add_theme_support('post-thumbnails');
+	
+	register_post_type('site', array(
+		'labels'=>array(
+			'name'=>'营业厅',
+			'all_items'=>'所有营业厅',
+			'add_new'=>'添加',
+			'add_new_item'=>'添加营业厅',
+			'edit_item'=>'编辑营业厅',
+			'new_item'=>'新营业厅',
+			'view_item'=>'查看营业厅',
+			'search_items'=>'搜索营业厅',
+			'not_found'=>'未找到营业厅'
+		),
+		'public'=>true,
+		'supports'=>array('title','thumbnail'),
+		'has_archive'=>true,
+		'register_meta_box_cb'=>function($post){
+			add_meta_box('properties', '营业厅信息', function($post){
+				$regions = json_decode(get_option('regions', '[]'));
+				require get_template_directory() . '/admin/site-info-meta-box.php';
+			}, 'site', 'normal');
+			remove_meta_box( 'postimagediv', 'site', 'side');
+			add_meta_box('postimagediv', __('营业厅点位图'), 'post_thumbnail_meta_box', 'site', 'side');
+		}
+	));
+	
+	register_post_type('decoration', array(
+		'labels'=>array(
+			'name'=>'换装',
+			'all_items'=>'所有换装',
+			'add_new'=>'发布',
+			'add_new_item'=>'发布换装',
+			'edit_item'=>'编辑换装',
+			'new_item'=>'新换装',
+			'view_item'=>'查看换装',
+			'search_items'=>'搜索换装',
+			'not_found'=>'未找到换装'
+		),
+		'public'=>true,
+		'supports'=>array('title')
+	));
+	
+	register_post_type('site_decoration', array(
+		'label'=>'营业厅换装',
+	));
+	
+	add_action('save_post', function($post_id){
+
+		$metas = array(
+			'region',
+			'site_map',
+			'manager',
+			'manager_phone',
+			'phone',
+			'address',
+			
+		);
+
+		foreach($metas as $field){
+			if(isset($_POST[$field])){
+				update_post_meta($post_id, $field, $_POST[$field]);
+			}
+		}
+	});
+	
 });
 
 add_action('wp_enqueue_scripts', function(){
@@ -18,6 +86,16 @@ add_action('wp_enqueue_scripts', function(){
 add_action('wp_foot', function(){
 	wp_enqueue_script('bootstrap');
 });
+
+add_action('admin_head-post-new.php',change_thumbnail_html);
+add_action('admin_head-post.php',change_thumbnail_html);
+function change_thumbnail_html( $content ) {
+    if ('site' == $GLOBALS['post_type'])
+      add_filter('admin_post_thumbnail_html',do_thumb);
+}
+function do_thumb($content){
+	 return str_replace(__('Set featured image'), __('设置营业厅点位图'), $content);
+}
 
 add_filter('body_class', function($classes) {
 	global $post;
