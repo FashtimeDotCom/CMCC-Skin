@@ -6,6 +6,10 @@ class Outlet extends LB_Controller {
 		parent::__construct();
 	}
 	
+	function signup () {
+		$this->load->view('outlet/signup');
+	}
+	
 	function requirement () {
 		$this->load->view('outlet/requirement');
 	}
