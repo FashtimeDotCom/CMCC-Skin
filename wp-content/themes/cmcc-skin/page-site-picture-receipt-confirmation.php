@@ -209,7 +209,7 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<th colspan="5" class="text-center"><a id="finish" href="<?=site_url()?>outlet/resultupload" class="btn btn-success">签收完成</a></th>
+			<th colspan="5" class="text-center"><a id="finish" href="<?=site_url()?>/site-result-upload/" class="btn btn-success">签收完成</a></th>
 		</tr>
 	</tfoot>
 </table>

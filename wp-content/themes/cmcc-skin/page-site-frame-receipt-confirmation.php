@@ -176,7 +176,7 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<th colspan="6" class="text-center"><a id="finish" href="<?=site_url()?>outlet/picturereceiptconfirmation" class="btn btn-success">签收完成</a></th>
+			<th colspan="6" class="text-center"><a id="finish" href="<?=site_url()?>/site-picture-receipt-confirmation/" class="btn btn-success">签收完成</a></th>
 		</tr>
 	</tfoot>
 </table>
