@@ -1,4 +1,7 @@
 .DS_Store
+.htaccess
 /nbproject
 /sys.sublime-*
 /application/logs
+/wp-config.php
+/wp-content/uploads
