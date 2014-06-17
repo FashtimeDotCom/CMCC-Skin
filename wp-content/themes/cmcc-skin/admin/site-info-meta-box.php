@@ -3,9 +3,9 @@
 		<tr>
 			<th><label for="region">区域：</label></th>
 			<td>
-				<select name="region" style="width:25em">
+				<select id="region" name="region" style="width:25em">
 					<?php foreach($regions as $region){ ?>
-					<option value="<?=$region?>"<?=selected(get_post_meta($post->ID, 'region', true))?>><?=$region?></option>
+					<option value="<?=$region?>"<?=selected($region, get_post_meta($post->ID, 'region', true))?>><?=$region?></option>
 					<?php } ?>
 				</select>
 			</td>
