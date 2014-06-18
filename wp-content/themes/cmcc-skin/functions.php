@@ -27,7 +27,8 @@ add_action('init', function(){
 			}, 'site', 'normal');
 			remove_meta_box( 'postimagediv', 'site', 'side');
 			add_meta_box('postimagediv', __('营业厅点位图'), 'post_thumbnail_meta_box', 'site', 'side');
-		}
+		},
+		'menu_icon'=>'dashicons-admin-home'
 	));
 	
 	register_post_type('decoration', array(
@@ -43,7 +44,19 @@ add_action('init', function(){
 			'not_found'=>'未找到换装'
 		),
 		'public'=>true,
-		'supports'=>array('title')
+		'supports'=>array('title','thumbnail'),
+		'menu_icon'=>'dashicons-art',
+		'register_meta_box_cb'=>function($post){
+			add_meta_box('pictures', '画面', function($post){
+				$pictures = json_decode(get_post_meta($post->ID, 'pictures', true), JSON_OBJECT_AS_ARRAY);
+				!$pictures && $pictures = array();
+				require get_template_directory() . '/admin/decoration-picture.php';
+			}, 'decoration', 'normal');
+			
+			add_meta_box('frame-picture-sheet', '各营业厅物料画面对应表', function($post){
+				require get_template_directory() . '/admin/decoration-frame-picture-sheet.php';
+			}, 'decoration', 'normal');
+		}
 	));
 	
 	register_post_type('site_decoration', array(
@@ -59,6 +72,8 @@ add_action('init', function(){
 			'manager_phone',
 			'phone',
 			'address',
+			
+			'pictures',
 			
 		);
 
@@ -87,8 +102,15 @@ add_action('wp_foot', function(){
 	wp_enqueue_script('bootstrap');
 });
 
-add_action('admin_head-post-new.php',change_thumbnail_html);
-add_action('admin_head-post.php',change_thumbnail_html);
+add_action('admin_enqueue_scripts', function(){
+	wp_register_style('cmcc-admin', get_template_directory_uri() . '/admin/style.css');
+	wp_register_script('cmcc-admin', get_template_directory_uri() . '/admin/script.js', array('jquery'));
+	wp_enqueue_style('cmcc-admin');
+	wp_enqueue_script('cmcc-admin');
+});
+
+add_action('admin_head-post-new.php', change_thumbnail_html);
+add_action('admin_head-post.php', change_thumbnail_html);
 function change_thumbnail_html( $content ) {
     if ('site' == $GLOBALS['post_type'])
       add_filter('admin_post_thumbnail_html',do_thumb);
