@@ -14,7 +14,11 @@ jQuery(function($){
 		})
 		.on('change', '.picture-detail>.title>input', function(){
 			var thisItem = $(this).closest('li');
-	
+			if($.inArray($(this).val(), $('.picture-list>li').map(function(){return $(this).attr('id');})) !== -1){
+				$(this).css('border-color', '#B00');
+				alert('该位置已经存在');
+				return;
+			}
 			$(this).css('border-color', '#0B0');
 			thisItem.attr('id', $(this).val());
 		})
