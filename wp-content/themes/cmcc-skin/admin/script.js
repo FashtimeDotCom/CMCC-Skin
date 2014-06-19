@@ -1,6 +1,6 @@
 jQuery(function($){
 	
-	var pictureList = $('.picture-list')
+	var pictureMetaBox = $('#pictures')
 		.on('click', '.add-picture>a', function(event){
 			event.preventDefault();
 			
@@ -50,10 +50,10 @@ jQuery(function($){
 				selection.map(function(attachment) {
 					thisItem.find('.set-picture a').html($('<img/>', {src: attachment.attributes.url}));
 					thisItem.find('.remove-picture').show();
-					var pictures = $.parseJSON(pictureList.find('input#pictures').val()) || {};
+					var pictures = $.parseJSON(pictureMetaBox.find('input#pictures').val()) || {};
 					var position = thisItem.attr('id');
 					pictures[position] = attachment.id;
-					pictureList.find('input#pictures').val(JSON.stringify(pictures));
+					pictureMetaBox.find('input#pictures').val(JSON.stringify(pictures));
 				});
 			})
 			.open();
@@ -66,7 +66,7 @@ jQuery(function($){
 			thisItem.remove();
 			var pictures = $.parseJSON($('input#pictures').val()) || {};
 			delete pictures[position];
-			$('input#pictures').val(JSON.stringify(pictures));
+			pictureMetaBox.find('input#pictures').val(JSON.stringify(pictures));
 		});
 	
 	var framePictureSheetMetaBox = $('#frame-picture-sheet')
