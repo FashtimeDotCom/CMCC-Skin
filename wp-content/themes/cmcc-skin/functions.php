@@ -56,6 +56,7 @@ add_action('init', function(){
 			add_meta_box('frame-picture-sheet', '各营业厅器架画面对应表', function($post){
 				$sheets = json_decode(get_post_meta($post->ID, 'sheets', true), JSON_OBJECT_AS_ARRAY);
 				!$sheets && $sheets = array();
+				$site_decorations = get_posts(array('post_type'=>'site_decoration', 'meta_key'=>'decoration', 'meta_value'=>$post->ID));
 				require get_template_directory() . '/admin/decoration-frame-picture-sheet.php';
 			}, 'decoration', 'normal');
 		}
@@ -159,7 +160,7 @@ add_action('init', function(){
 
 					}
 
-					$site_decoration_query_result = get_posts(array('post_type'=>'site_decoration', 'meta_key'=>'site', 'meta_value'=>$site_id));
+					$site_decoration_query_result = get_posts(array('post_type'=>'site_decoration', 'meta_query'=>array(array('key'=>'site', 'value'=>$site_id),array('key'=>'decoration', 'value'=>$post_id))));
 
 					// 如果没有这个营业厅的换装数据，先创建
 					// TODO decoration的pictures和sheets meta数据会被一同保存到site_decoration中，目前不影响使用
@@ -167,7 +168,7 @@ add_action('init', function(){
 						$site_decoration_id = wp_insert_post(array(
 							'post_type'=>'site_decoration',
 							'post_title'=>$site_name . ' - ' . get_post($post_id)->post_title,
-							'post_status'=>'published',
+							'post_status'=>'publish',
 						));
 					}
 					else{
@@ -182,7 +183,7 @@ add_action('init', function(){
 						$frames[$row['器架名称']]['pictures'][] = array('position'=>$row['画面位置'], 'received'=>false);
 					}
 
-					update_post_meta($site_decoration_id, 'frames', json_encode($frames));
+					update_post_meta($site_decoration_id, 'frames', json_encode($frames, JSON_UNESCAPED_UNICODE));
 					add_post_meta($site_decoration_id, 'site_id', $site_id);
 					add_post_meta($site_decoration_id, 'decoration', $post_id);
 					add_post_meta($site_decoration_id, 'frames_received', false);
