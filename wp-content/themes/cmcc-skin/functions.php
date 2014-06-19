@@ -53,7 +53,7 @@ add_action('init', function(){
 				require get_template_directory() . '/admin/decoration-picture.php';
 			}, 'decoration', 'normal');
 			
-			add_meta_box('frame-picture-sheet', '各营业厅物料画面对应表', function($post){
+			add_meta_box('frame-picture-sheet', '各营业厅器架画面对应表', function($post){
 				$sheets = json_decode(get_post_meta($post->ID, 'sheets', true), JSON_OBJECT_AS_ARRAY);
 				!$sheets && $sheets = array();
 				require get_template_directory() . '/admin/decoration-frame-picture-sheet.php';
@@ -65,45 +65,136 @@ add_action('init', function(){
 		'label'=>'营业厅换装',
 	));
 	
-	add_action('save_post', function($post_id){
+	isset($_POST['sheets']) && add_action('save_post', import_site_decoration_sheet);
+	add_action('save_post', update_metas);
+	
+	function update_metas($post_id){
 
-		$metas = array(
-			'region',
-			'site_map',
-			'manager',
-			'manager_phone',
-			'phone',
-			'address',
-			
-			'pictures',
-			'sheets'
-			
-		);
-		
-		if(isset($_POST['sheets'])){
-			
-			$sheets = json_decode(stripslashes($_POST['sheets']));
-			
-			if($sheets !== false){
-				foreach($sheets as $sheet_id => &$status){
-					if($status === 'queued'){
-						// import excel, create site_decorations
-						$status = 'imported';
-					}
-				}
-			}
-			
-			$_POST['sheets'] = json_encode($sheets);
+		if($_POST['post_type'] === 'site'){
+			$metas = array(
+				'region',
+				'site_map',
+				'manager',
+				'manager_phone',
+				'phone',
+				'address',
+			);
 		}
-		
+		elseif($_POST['post_type'] === 'decoration'){
+			$metas = array(
+				'pictures',
+				'sheets'
+			);
+		}
+		else{
+			$metas = array();
+		}
+
 		foreach($metas as $field){
 			if(isset($_POST[$field])){
 				update_post_meta($post_id, $field, $_POST[$field]);
 			}
 		}
 		
-	});
+	}
 	
+	function import_site_decoration_sheet($post_id){
+		
+		remove_action( 'save_post', 'import_site_decoration_sheet', 10 );
+		
+		$sheets = json_decode(stripslashes($_POST['sheets']));
+
+		if($sheets !== false){
+			foreach($sheets as $sheet_id => &$status){
+
+				// 合并后的数据更新到营业厅换装中
+				if($status === 'queued'){
+					// import excel, create site_decorations
+					$path = get_attached_file($sheet_id);
+
+					$excel = PHPExcel_IOFactory::load($path);
+					$sheet = $excel->getSheet();
+
+					$site_name = $sheet->getTitle();
+
+					$site_query_result = get_posts(array('post_type'=>'site', 'name'=>$site_name));
+
+					if(empty($site_query_result)){
+						exit('系统中没有' . $site_name . '，请先添加这个营业厅');
+					}
+
+					$site_id = $site_query_result[0]->ID;
+
+					$highestColumn = PHPExcel_Cell::columnIndexFromString($sheet->getHighestColumn());
+					$highestRow = $sheet->getHighestRow();
+
+					$header = array(); // 表头，列号和列名对照关系
+
+					for($column = 0; $column <= $highestColumn; $column++){
+						$header[$column] = $sheet->getCellByColumnAndRow($column, 1)->getValue();
+					}
+
+					if(array_diff(array('器架名称', '画面位置'), $header)){
+						exit('表格必须包含“器架名称”和画面位置2列');
+						continue;
+					}
+
+					$table = array();
+
+					for($row = 2; $row <= $highestRow; $row++){
+
+						$row_data = array();
+
+						for($column = 0; $column <= $highestColumn; $column++){
+							$value = $sheet->getCellByColumnAndRow($column, $row)->getValue();
+							// TODO 检查画面和位置是否合法
+							$row_data[$header[$column]] = $value;
+						}
+
+						$table[] = $row_data;
+
+					}
+
+					$site_decoration_query_result = get_posts(array('post_type'=>'site_decoration', 'meta_key'=>'site', 'meta_value'=>$site_id));
+
+					// 如果没有这个营业厅的换装数据，先创建
+					// TODO decoration的pictures和sheets meta数据会被一同保存到site_decoration中，目前不影响使用
+					if(empty($site_decoration_query_result)){
+						$site_decoration_id = wp_insert_post(array(
+							'post_type'=>'site_decoration',
+							'post_title'=>$site_name . ' - ' . get_post($post_id)->post_title,
+							'post_status'=>'published',
+						));
+					}
+					else{
+						$site_decoration_id = $site_decoration_query_result[0]->ID;
+					}
+
+					// 拼出器架和画面数据
+					$frames = array();
+					foreach($table as $row){
+						!isset($frames[$row['器架名称']]) && $frames[$row['器架名称']] = array('quantity'=>0, 'received'=>false, 'pictures'=>array());
+						$frames[$row['器架名称']]['quantity'] ++;
+						$frames[$row['器架名称']]['pictures'][] = array('position'=>$row['画面位置'], 'received'=>false);
+					}
+
+					update_post_meta($site_decoration_id, 'frames', json_encode($frames));
+					add_post_meta($site_decoration_id, 'site_id', $site_id);
+					add_post_meta($site_decoration_id, 'decoration', $post_id);
+					add_post_meta($site_decoration_id, 'frames_received', false);
+					add_post_meta($site_decoration_id, 'pictures_received', false);
+					add_post_meta($site_decoration_id, 'reviewed', false);
+					
+					$status = 'imported';
+				}
+			}
+		}
+
+		$_POST['sheets'] = json_encode($sheets);
+		
+		add_action( 'save_post', 'import_site_decoration_sheet', 10 );
+		
+	}
 });
 
 add_action('wp_enqueue_scripts', function(){
