@@ -5,6 +5,8 @@ add_action('init', function(){
 	
 	add_theme_support('post-thumbnails');
 	
+	add_image_size('decoration-picture', 150, 351, true);
+	
 	register_post_type('site', array(
 		'labels'=>array(
 			'name'=>'营业厅',

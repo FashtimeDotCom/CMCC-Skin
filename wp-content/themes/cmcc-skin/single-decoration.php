@@ -1,4 +1,11 @@
-<?php get_header(); ?>
+<?php
+$pictures = json_decode(get_post_meta(get_the_ID(), 'pictures', true), JSON_OBJECT_AS_ARRAY);
+$picture_groups = array();
+for($group = 0; $group < ceil( count($pictures) / 6 ); $group ++){
+	$picture_groups[] = array_slice($pictures, $group * 6, 6);
+}
+get_header();
+?>
 
 <header>
 	<h1>2014移动营业厅晚春换装</h1>
@@ -6,8 +13,9 @@
 
 <section id="pictures" class="swipe">
 	<div class="swipe-wrap">
+		<?php foreach ($picture_groups as $picture_group){ ?>
 		<div class="row" style="margin:0">
-			<?php for($i = 0; $i < 6; $i++){ ?>
+			<?php foreach($picture_group as $position => $picture_id){ ?>
 			<div class="col-xs-4">
 	<!--			<ul class="list-unstyled">
 					<li>
@@ -23,17 +31,11 @@
 						<span class="picture-description highlight">热门软件下载</span>
 					</li>
 				</ul>-->
-				<a href="<?=site_url()?>img/换装发布表格1-<?=$i+1?>.jpg"><img src="<?=get_template_directory_uri()?>/img/换装发布表格1-<?=$i+1?>.jpg"></a>
+				<a href="<?=wp_get_attachment_url($picture_id)?>"><?=wp_get_attachment_image($picture_id, 'decoration-picture')?></a>
 			</div>
 			<?php } ?>
 		</div>
-		<div class="row" style="margin:0">
-			<?php for($i = 0; $i < 6; $i++){ ?>
-			<div class="col-xs-4">
-				<a href="<?=site_url()?>img/换装发布表格1-<?=$i+1?>.jpg"><img src="<?=get_template_directory_uri()?>/img/换装发布表格1-<?=$i+6?>.jpg"></a>
-			</div>
-			<?php } ?>
-		</div>
+		<?php } ?>
 	</div>
 </section>
 
@@ -44,7 +46,7 @@
 				换装要求
 			</th>
 			<td>
-				B1 B6 B7
+				<?=get_post_meta(get_the_ID(), 'description')?>
 			</td>
 		</tr>
 		<tr>
@@ -52,7 +54,7 @@
 				换装时间
 			</th>
 			<td>
-				4月21日完成（市区18号完成）
+				<?=get_post_meta(get_the_ID(), 'date')?>
 			</td>
 		</tr>
 		<tr>
@@ -60,7 +62,7 @@
 				换装方法
 			</th>
 			<td>
-				对照换装画面示意图上的编号，如“A1”厅平面点位图中“A1”。
+				<?=get_post_meta(get_the_ID(), 'method')?>
 			</td>
 		</tr>
 		<tr>
