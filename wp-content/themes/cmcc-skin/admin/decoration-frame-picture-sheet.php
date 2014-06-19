@@ -25,11 +25,17 @@
 <?php if(!empty($site_decorations)){ ?>
 <ul class="site-frames">
 	<?php foreach($site_decorations as $site_decoration){ ?>
-	<li class="site-name"><h3><?=get_post(get_post_meta($site_decoration->ID, 'site_id', true))->post_title?></h3></li>
+	<li class="site-name">
+		<h3><?=get_post(get_post_meta($site_decoration->ID, 'site_id', true))->post_title?>
+			<?php if(get_post_meta($site_decoration->ID, 'frames_received', true)){ ?><span class="dashicons dashicons-pressthis"></span><?php } ?>
+			<?php if(get_post_meta($site_decoration->ID, 'pictures_received', true)){ ?><span class="dashicons dashicons-format-image"></span><?php } ?>
+			<?php if(get_post_meta($site_decoration->ID, 'reviewed', true)){ ?><span class="dashicons dashicons-yes"></span><?php } ?>
+		</h3>
+	</li>
 	<?php	foreach(json_decode(get_post_meta($site_decoration->ID, 'frames', true)) as $frame_name => $frame){ ?>
-	<li class="frame"><?=$frame_name?>：
+	<li class="frame<?php if($frame->received){ ?> received<?php } ?>"><?=$frame_name?>：
 		<?php foreach($frame->pictures as $picture){ ?>
-		<span class="picture"><?=$picture->position?></span>
+		<span class="picture<?php if($picture->received){ ?> received<?php } ?>"><?=$picture->position?></span>
 		<?php } ?>
 	</li>
 	<?php	} ?>
