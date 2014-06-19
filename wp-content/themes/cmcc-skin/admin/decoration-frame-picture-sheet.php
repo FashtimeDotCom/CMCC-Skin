@@ -2,10 +2,14 @@
 <ul class="sheet-list clearfix"<?php if(!$sheets){ ?> style="display:none"<?php } ?>>
 	<?php foreach($sheets as $sheet_id => $status){ ?>
 	<li id="<?=$sheet_id?>">
-		<p class="hide-if-no-js sheet-file"><?=get_post_meta($sheet_id, '_wp_attached_file', true)?></p>
+		<p class="hide-if-no-js sheet-file"><?=get_post($sheet_id)->post_title?></p>
 		<p class="hide-if-no-js sheet-actions">
 			<a href="<?=wp_get_attachment_url($sheet_id)?>" class="download">下载</a>
+			<?php if($status === 'imported'){ ?>
 			<label>已导入</label>
+			<?php }else{ ?>
+			<a href="#" class="remove">移除</a>
+			<?php } ?>
 		</p>
 	</li>
 	<?php } ?>

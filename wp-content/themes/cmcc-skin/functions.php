@@ -105,6 +105,7 @@ add_action('init', function(){
 		$sheets = json_decode(stripslashes($_POST['sheets']));
 
 		if($sheets !== false){
+			
 			foreach($sheets as $sheet_id => &$status){
 
 				// 合并后的数据更新到营业厅换装中
@@ -120,7 +121,8 @@ add_action('init', function(){
 					$site_query_result = get_posts(array('post_type'=>'site', 'name'=>$site_name));
 
 					if(empty($site_query_result)){
-						exit('系统中没有' . $site_name . '，请先添加这个营业厅');
+						add_user_meta(get_current_user_id(), '_admin_notice', 'error: 系统中没有' . $site_name . '，请先添加这个营业厅');
+						continue;
 					}
 
 					$site_id = $site_query_result[0]->ID;
@@ -135,12 +137,14 @@ add_action('init', function(){
 					}
 
 					if(array_diff(array('器架名称', '画面位置'), $header)){
-						exit('表格必须包含“器架名称”和画面位置2列');
+						add_user_meta(get_current_user_id(), '_admin_notice', 'error: 表格必须包含“器架名称”和画面位置2列，请检查并修改后重新上传');
+						wp_delete_post($sheet_id);
+						unset($sheets[$sheet_id]);
 						continue;
 					}
 
 					$table = array();
-
+					
 					for($row = 2; $row <= $highestRow; $row++){
 
 						$row_data = array();
@@ -186,6 +190,7 @@ add_action('init', function(){
 					add_post_meta($site_decoration_id, 'reviewed', false);
 					
 					$status = 'imported';
+					add_user_meta(get_current_user_id(), '_admin_notice', 'updated: 已导入文件 ' . get_post($sheet_id)->post_title . ' 中的数据');
 				}
 			}
 		}
@@ -236,4 +241,19 @@ add_filter('body_class', function($classes) {
 		$classes[] = $post->post_type . '-' . $post->post_name;
 	}
 	return $classes;
+});
+
+add_action('admin_notices', function(){
+	$notices = get_user_meta(get_current_user_id(), '_admin_notice');
+	foreach($notices as $notice){
+		$part = preg_split('/\: /', $notice);
+		$type = $part[0];
+		$message = $part[1];
+?>
+<div class="<?=$type?>">
+	<p><?=$message?></p>
+</div>
+<?php
+	}
+	delete_user_meta(get_current_user_id(), '_admin_notice');
 });
