@@ -1,6 +1,6 @@
 jQuery(function($){
 	
-	$('.picture-list')
+	var pictureList = $('.picture-list')
 		.on('click', '.add-picture>a', function(event){
 			event.preventDefault();
 			
@@ -50,10 +50,10 @@ jQuery(function($){
 				selection.map(function(attachment) {
 					thisItem.find('.set-picture a').html($('<img/>', {src: attachment.attributes.url}));
 					thisItem.find('.remove-picture').show();
-					var pictures = $.parseJSON($('input#pictures').val()) || {};
+					var pictures = $.parseJSON(pictureList.find('input#pictures').val()) || {};
 					var position = thisItem.attr('id');
 					pictures[position] = attachment.id;
-					$('input#pictures').val(JSON.stringify(pictures));
+					pictureList.find('input#pictures').val(JSON.stringify(pictures));
 				});
 			})
 			.open();
@@ -66,8 +66,55 @@ jQuery(function($){
 			thisItem.remove();
 			var pictures = $.parseJSON($('input#pictures').val()) || {};
 			delete pictures[position];
-			console.log(pictures);
 			$('input#pictures').val(JSON.stringify(pictures));
+		});
+	
+	var framePictureSheetMetaBox = $('#frame-picture-sheet')
+		.on('click', '.add-sheet>a', function(event){
+			event.preventDefault();
+			
+			var sheets = $.parseJSON(framePictureSheetMetaBox.find('input#sheets').val()) || {};
+			
+			wp.media.frames.frameSheet = wp.media({
+				title: '上传营业厅物料画面表格文件',
+				button: {
+					text: '加入导入队列',
+				},
+				states : [
+					new wp.media.controller.Library({
+						title: '上传营业厅物料画面表格文件',
+						filterable : 'all',
+						multiple: true
+					})
+				]
+			})
+			.on('select', function(){
+				
+				var list = framePictureSheetMetaBox.find('.sheet-list');
+				var selection = wp.media.frames.frameSheet.state().get('selection');
+				
+				selection.map(function(attachment) {
+					var lastItem = list.children('li:last');
+					lastItem.clone().appendTo(list);
+					lastItem.children('.sheet-file').text(attachment.attributes.filename);
+					lastItem.find('a.download').attr('href', attachment.attributes.url);
+					list.show();
+					lastItem.attr('id', attachment.id).show();
+					sheets[attachment.id] = 'queued';
+				});
+				console.log(JSON.stringify(sheets));
+				framePictureSheetMetaBox.find('input#sheets').val(JSON.stringify(sheets));
+				
+			})
+			.open();
+		})
+		.on('click', '.sheet-actions>a.remove', function(event){
+			event.preventDefault();
+			var sheets = $.parseJSON(framePictureSheetMetaBox.find('input#sheets').val());
+			item = $(this).closest('li');
+			delete sheets[item.attr('id')];
+			framePictureSheetMetaBox.find('input#sheets').val(JSON.stringify(sheets));
+			item.remove();
 		});
 	
 });

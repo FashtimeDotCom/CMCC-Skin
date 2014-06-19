@@ -54,6 +54,8 @@ add_action('init', function(){
 			}, 'decoration', 'normal');
 			
 			add_meta_box('frame-picture-sheet', '各营业厅物料画面对应表', function($post){
+				$sheets = json_decode(get_post_meta($post->ID, 'sheets', true), JSON_OBJECT_AS_ARRAY);
+				!$sheets && $sheets = array();
 				require get_template_directory() . '/admin/decoration-frame-picture-sheet.php';
 			}, 'decoration', 'normal');
 		}
@@ -74,14 +76,32 @@ add_action('init', function(){
 			'address',
 			
 			'pictures',
+			'sheets'
 			
 		);
-
+		
+		if(isset($_POST['sheets'])){
+			
+			$sheets = json_decode(stripslashes($_POST['sheets']));
+			
+			if($sheets !== false){
+				foreach($sheets as $sheet_id => &$status){
+					if($status === 'queued'){
+						// import excel, create site_decorations
+						$status = 'imported';
+					}
+				}
+			}
+			
+			$_POST['sheets'] = json_encode($sheets);
+		}
+		
 		foreach($metas as $field){
 			if(isset($_POST[$field])){
 				update_post_meta($post_id, $field, $_POST[$field]);
 			}
 		}
+		
 	});
 	
 });
