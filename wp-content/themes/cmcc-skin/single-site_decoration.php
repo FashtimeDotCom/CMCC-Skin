@@ -44,13 +44,13 @@ get_header();
 			<th>区域</th>
 			<td><?=get_post_meta($site_id, 'region', true)?></td>
 			<th>厅经理确认</th>
-			<td> ? </td><!--TODO 这是什么-->
+			<td><?=get_post_meta($site_id, 'manager', true)?></td>
 		</tr>
 		<tr>
 			<th>厅名</th>
 			<td><?=get_post($site_id)->post_title?></td>
 			<th>日期</th>
-			<td> ? </td><!--TODO 什么日期-->
+			<td><?=get_the_date('Y-m-d')?></td><!--TODO 什么日期-->
 		</tr>
 		<tr>
 			<th>签收须知</th>
