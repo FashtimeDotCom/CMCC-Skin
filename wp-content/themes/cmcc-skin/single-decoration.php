@@ -46,7 +46,7 @@ get_header();
 				换装要求
 			</th>
 			<td>
-				<?=get_post_meta(get_the_ID(), 'description')?>
+				<?=get_post_meta(get_the_ID(), 'description', true)?>
 			</td>
 		</tr>
 		<tr>
@@ -54,7 +54,7 @@ get_header();
 				换装时间
 			</th>
 			<td>
-				<?=get_post_meta(get_the_ID(), 'date')?>
+				<?=get_post_meta(get_the_ID(), 'date', true)?>
 			</td>
 		</tr>
 		<tr>
@@ -62,7 +62,7 @@ get_header();
 				换装方法
 			</th>
 			<td>
-				<?=get_post_meta(get_the_ID(), 'method')?>
+				<?=get_post_meta(get_the_ID(), 'method', true)?>
 			</td>
 		</tr>
 		<tr>
