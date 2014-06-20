@@ -63,10 +63,12 @@ header h1 {
 
 .table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
 	border: 1px solid #0085d0;
+	vertical-align: middle;
 }
 
 .table-bordered.summary>thead>tr>th, .table-bordered.summary>tbody>tr>th, .table-bordered.summary>tfoot>tr>th, .table-bordered.summary>thead>tr>td, .table-bordered.summary>tbody>tr>td, .table-bordered.summary>tfoot>tr>td {
 	border: 1px solid #FFF;
+	vertical-align: middle;
 }
 
 .table.summary {
@@ -197,8 +199,8 @@ header.recept h1 {
 	height: 40px;
 }
 
-td.check.checked {
-	background: url('img/check.png') center no-repeat;
+td.check .checkmark {
+	font-size:1.8em;color:#90c320;
 }
 
 .page-site-frame-receiptcon-firmation #receipt-detail .sample-picture {
