@@ -231,6 +231,17 @@ td.check .checkmark {
 .result-upload .row>div, .resultupload .row>div {
 	padding: 0;
 	text-align: center;
+	min-height: 180px;
+}
+
+.result-upload input[type="file"] {
+	margin-left: 4%;
+}
+
+.result-upload .form-actions {
+	text-align: center;
+	padding: 10px;
+	background: #DBDBDB;
 }
 
 body.admin .table tbody td {

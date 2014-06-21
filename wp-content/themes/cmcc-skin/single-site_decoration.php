@@ -17,7 +17,7 @@ foreach($frames as $name => $frame){
 	}
 }
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
+if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_GET['result_upload'])){
 	
 	if(isset($_POST['frame_received'])){
 		if(is_array($_POST['frame_received'])){
@@ -53,6 +53,28 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	header('Content-Type: application/json');
 	echo json_encode($unreceived);
 	
+	exit;
+}
+
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['result_upload'])){
+	
+	include_once ABSPATH . 'wp-admin/includes/media.php';
+	include_once ABSPATH . 'wp-admin/includes/file.php';
+	include_once ABSPATH . 'wp-admin/includes/image.php';
+	
+	$result_photos = json_decode(get_post_meta(get_the_ID(), 'result_photos', true));
+	!$result_photos && $result_photos = new stdClass();
+	
+	foreach($_FILES as $index => $file){
+		$attachment_id = media_handle_upload($index, 0);
+		if(is_integer($attachment_id)){
+			$result_photos->$index = $attachment_id;
+		}
+	}
+	
+	update_post_meta(get_the_ID(), 'result_photos', json_encode($result_photos, JSON_UNESCAPED_UNICODE));
+	
+	header('Location: http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
 	exit;
 }
 
@@ -228,19 +250,48 @@ $(function(){
 });
 })(jQuery);
 </script>
-<?php }else{ ?>
-<?php
+<?php }else{
 $result_positions = json_decode(get_option('result_upload_positions'));
+$result_photos = json_decode(get_post_meta(get_the_ID(), 'result_photos', true));
 ?>
 <div class="result-upload">
-	<?php foreach($result_positions as $slug => $name){ ?>
-	<div class="row">
-		<div class="col-xs-12">
-			<h2><?=$name?></h2>
-			<input type="file" name="<?=$slug?>">
+	<form method="post" enctype="multipart/form-data">
+		<?php foreach($result_positions as $slug => $name){ ?>
+		<div class="row">
+			<div class="col-xs-12">
+				<h2><?=$name?></h2>
+				<?php if(isset($result_photos->$slug)){ ?>
+				<?=wp_get_attachment_image($result_photos->$slug, 'large')?>
+				<?php }else{ ?>
+				<img class="preview" />
+				<input type="file" name="<?=$slug?>">
+				<?php } ?>
+			</div>
 		</div>
-	</div>
-	<?php } ?>
+		<?php } ?>
+		<div class="form-actions">
+			<button type="submit" class="btn btn-success">上传</button>
+		</div>
+	</form>
 </div>
+<script type="text/javascript">
+jQuery(function($){
+	
+	$('.result-upload form input[type="file"]').change(function(){
+		
+		var input = $(this);
+		
+		if (this.files && this.files[0]) {
+			var reader = new FileReader();
+			
+			reader.onload = function (e) {
+				input.siblings('img.preview').attr('src', e.target.result);
+			}
+
+			reader.readAsDataURL(this.files[0]);
+		}
+	});
+});
+</script>
 <?php } ?>
 <?php get_footer(); ?>
