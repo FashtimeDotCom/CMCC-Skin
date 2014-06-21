@@ -2,7 +2,10 @@
 $site_id = get_post_meta(get_the_ID(), 'site_id', true);
 $decoration_id = get_post_meta(get_the_ID(), 'decoration', true);
 $frames = json_decode(get_post_meta(get_the_ID(), 'frames', true));
+$frame_types = json_decode(get_option('frame_types'));
+
 $unreceived = array('frames'=>0, 'pictures'=>0);
+
 foreach($frames as $name => $frame){
 	if(!$frame->received){
 		$unreceived['frames']++;
@@ -17,12 +20,34 @@ foreach($frames as $name => $frame){
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	
 	if(isset($_POST['frame_received'])){
-		foreach($_POST['frame_received'] as $name => $received){
-			$received = json_decode($received);
-			$frames->$name->received = $received;
-			$received ? $unreceived['frames'] -- : $unreceived['frames'] ++;
+		if(is_array($_POST['frame_received'])){
+			foreach($_POST['frame_received'] as $name => $received){
+				$received = json_decode($received);
+				$frames->$name->received = $received;
+				$received ? $unreceived['frames'] -- : $unreceived['frames'] ++;
+			}
+			update_post_meta(get_the_ID(), 'frames', json_encode($frames, JSON_UNESCAPED_UNICODE));
 		}
-		update_post_meta(get_the_ID(), 'frames', json_encode($frames, JSON_UNESCAPED_UNICODE));
+		else{
+			update_post_meta(get_the_ID(), 'frames_received', json_decode($_POST['frame_received']));
+		}
+	}
+	
+	if(isset($_POST['picture_received'])){
+		if(is_array($_POST['picture_received'])){
+			foreach($_POST['picture_received'] as $frame_name => $received){
+				$received = json_decode($received);
+				$frames->$frame_name->pictures_received = $received;
+				foreach($frames->$frame_name->pictures as &$picture){
+					$picture->received = $received;
+					$received ? $unreceived['pictures'] -- : $unreceived['pictures'] ++;
+				}
+			}
+			update_post_meta(get_the_ID(), 'frames', json_encode($frames, JSON_UNESCAPED_UNICODE));
+		}
+		else{
+			update_post_meta(get_the_ID(), 'pictures_received', json_decode($_POST['picture_received']));
+		}
 	}
 	
 	header('Content-Type: application/json');
@@ -34,6 +59,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 get_header();
 ?>
 
+<?php if(!isset($_GET['result_upload'])){ ?>
 <header class="recept">
 	<h1>中国移动上海公司营业厅物料签收单</h1>
 </header>
@@ -50,7 +76,7 @@ get_header();
 			<th>厅名</th>
 			<td><?=get_post($site_id)->post_title?></td>
 			<th>日期</th>
-			<td><?=get_the_date('Y-m-d')?></td><!--TODO 什么日期-->
+			<td><?=get_the_date('Y-m-d')?></td>
 		</tr>
 		<tr>
 			<th>签收须知</th>
@@ -59,7 +85,7 @@ get_header();
 	</tbody>
 </table>
 
-<table id="receipt-detail" class="table table-bordered">
+<table id="receipt-detail" class="table table-bordered frames"<?php if(get_post_meta(get_the_ID(), 'frames_received', true)){ ?> style="display:none"<?php } ?>>
 	<thead>
 		<tr>
 			<td>序号</td>
@@ -84,29 +110,137 @@ get_header();
 	</tbody>
 	<tfoot>
 		<tr>
-			<th colspan="6" class="text-center"><a id="finish" href="<?=site_url()?>/site-picture-receipt-confirmation/" class="btn btn-success<?php if($unreceived['frames']){ ?> disabled<?php } ?>">签收完成</a></th>
+			<th colspan="6" class="text-center"><button type="button" id="finish" class="frames-received btn btn-success<?php if($unreceived['frames']){ ?> disabled<?php } ?>">签收完成</button></th>
+		</tr>
+	</tfoot>
+</table>
+
+<table id="receipt-detail" class="table table-bordered pictures"<?php if(!get_post_meta(get_the_ID(), 'frames_received', true)){ ?> style="display:none"<?php } ?>>
+	<thead>
+		<tr>
+			<td>物料名称</td>
+			<td>画面尺寸（WxL/mm）</td>
+			<td>数量</td>
+			<td>画面材质</td>
+			<td>确认（√）</td>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach($frames as $name => $frame){ ?>
+		<tr>
+			<td class="frame-type"><?=$name?></td>
+			<td><?=$frame_types->$name->size?></td>
+			<td class="dropdown"><?=$frame->quantity?><span class="caret"></span></td>
+			<td><?=$frame_types->$name->material?></td>
+			<td class="check"><span class="fa fa-check checkmark"<?php if(!$frame->pictures_received){ ?> style="display:none"<?php } ?>></span></td>
+		</tr>
+		<tr class="expanded">
+			<td colspan="5">
+				<table class="table table-bordered summary detail fixed-layout">
+					<tbody>
+						<?php
+						$picture_groups = array();
+						for($group = 0; $group < ceil( count($frame->pictures) / 4 ); $group ++){
+							$picture_groups[] = array_slice($frame->pictures, $group * 4, 4);
+						}
+						?>
+						<?php foreach($picture_groups as $pictures){ ?>
+						<tr>
+							<?php foreach($pictures as $picture){ ?>
+							<th class="active">位置：<?=$picture->position?></th>
+							<?php } ?>
+							<?php for($i = 4 - count($pictures); $i>0; $i--){ // 补完一行 ?>
+							<th></th>
+							<?php } ?>
+						</tr>
+						<tr>
+							<?php foreach($pictures as $picture){ ?>
+							<?php
+							$decoration_pictures = json_decode(get_post_meta($decoration_id, 'pictures', true));
+							$position = $picture->position;
+							?>
+							<td class="active"><a href="<?=wp_get_attachment_url($decoration_pictures->$position)?>"><?=wp_get_attachment_image($decoration_pictures->$position)?></a></td>
+							<?php } ?>
+							<?php for($i = 4 - count($pictures); $i>0; $i--){ // 补完一行 ?>
+							<td></td>
+							<?php } ?>
+						</tr>
+						<?php } ?>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+		<?php } ?>
+	</tbody>
+	<tfoot>
+		<tr>
+			<th colspan="5" class="text-center"><button type="button" class="pictures-received btn btn-success<?php if($unreceived['pictures']){ ?> disabled<?php } ?>">签收完成</button></th>
 		</tr>
 	</tfoot>
 </table>
 
 <script type="text/javascript">
 (function($){
-	$(function(){
-		$('td.check').on('click', function(){
-			$(this).children('.checkmark').toggle();
-			var frameType = $(this).siblings('.frame-type').text();
-			var postData = {frame_received: {}, picture_received: {}};
-			postData.frame_received[frameType] = $(this).children('.checkmark').is(':visible');
-			$.post(window.location.href, postData, function(unreceived){
-				if(unreceived.frames === 0){
-					$('a#finish').removeClass('disabled');
-				}else{
-					$('a#finish').addClass('disabled');
-				}
-			});
+$(function(){
+	
+	$('td.check').on('click', function(){
+		$(this).children('.checkmark').toggle();
+		var postData = {frame_received: {}, picture_received: {}};
+		var frameType = $(this).siblings('.frame-type').text();
+		var postScope = $(this).closest('table').hasClass('frames') ? 'frame_received' : 'picture_received';
+		frameType && (postData[postScope][frameType] = $(this).children('.checkmark').is(':visible'));
+		$.post(window.location.href, postData, function(unreceived){
+			if(unreceived.frames === 0){
+				$('table.frames :button.frames-received').removeClass('disabled');
+			}else{
+				$('table.frames :button.frames-received').addClass('disabled');
+			}
+			
+			if(unreceived.pictures === 0){
+				$('table.pictures :button.pictures-received').removeClass('disabled');
+			}else{
+				$('table.pictures :button.pictures-received').addClass('disabled');
+			}
 		});
 	});
+
+	$('td.dropdown').on('click', function(){
+		var expand = $(this).parent('tr').next('tr.expanded');
+		if(expand.is(':hidden')){
+			expand.show();
+		}else{
+			expand.hide();
+		}
+	});
+	
+	$(':button.frames-received').on('click', function(){
+		$.post(window.location.href, {frame_received: true}, function(){
+			$('table.frames').hide().next('table.pictures').show();
+		})
+	});
+
+	$(':button.pictures-received').on('click', function(){
+		$.post(window.location.href, {picture_received: true}, function(){
+			window.location.search = 'result_upload';
+		})
+	});
+
+});
 })(jQuery);
 </script>
-
+<?php }else{ ?>
+<?php
+$result_positions = json_decode(get_option('result_upload_positions'));
+?>
+<div class="result-upload">
+	<?php foreach($result_positions as $slug => $name){ ?>
+	<div class="row">
+		<div class="col-xs-12">
+			<h2><?=$name?></h2>
+			<input type="file" name="<?=$slug?>">
+		</div>
+	</div>
+	<?php } ?>
+</div>
+<?php } ?>
 <?php get_footer(); ?>

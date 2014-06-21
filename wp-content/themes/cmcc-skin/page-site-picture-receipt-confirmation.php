@@ -45,69 +45,17 @@
 		</tr>
 		<tr class="expanded">
 			<td colspan="5">
-				<table class="table table-bordered summary detail">
+				<table class="table table-bordered summary detail fixed-layout">
 					<tbody>
 						<tr>
-							<th class="active">画面编号：A1</th>
-							<th class="active">画面编号：A2</th>
-							<th>画面编号：B1</th>
-							<th>画面编号：B2</th>
-							<th>画面编号：B3</th>
-							<th>画面编号：B4</th>
+							<th class="active">位置：A1</th>
+							<th class="active">位置：A2</th>
+							<th></th>
+							<th></th>
 						</tr>
 						<tr>
 							<td class="active"></td>
 							<td class="active"></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<th>画面编号：B5</th>
-							<th>画面编号：B6</th>
-							<th>画面编号：B7</th>
-							<th>画面编号：C1</th>
-							<th>画面编号：C2</th>
-							<th>画面编号：C3</th>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<th>画面编号：M1</th>
-							<th>画面编号：M2</th>
-							<th>画面编号：M3</th>
-							<th>画面编号：M4</th>
-							<th>画面编号：M5</th>
-							<th>画面编号：M6</th>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<th>画面编号：M7</th>
-							<th>画面编号：M8</th>
-							<th>画面编号：Z1</th>
-							<th>画面编号：Z2</th>
-							<th>画面编号：Z3</th>
-							<th>画面编号：Z4</th>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
 							<td></td>
 							<td></td>
 						</tr>

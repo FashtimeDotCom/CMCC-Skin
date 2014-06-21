@@ -180,7 +180,7 @@ add_action('init', function(){
 					// 拼出器架和画面数据
 					$frames = array();
 					foreach($table as $row){
-						!isset($frames[$row['器架名称']]) && $frames[$row['器架名称']] = array('quantity'=>0, 'received'=>false, 'pictures'=>array());
+						!isset($frames[$row['器架名称']]) && $frames[$row['器架名称']] = array('quantity'=>0, 'received'=>false, 'pictures_received'=>false, 'pictures'=>array());
 						$frames[$row['器架名称']]['quantity'] ++;
 						$frames[$row['器架名称']]['pictures'][] = array('position'=>$row['画面位置'], 'received'=>false);
 					}

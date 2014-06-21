@@ -71,6 +71,10 @@ header h1 {
 	vertical-align: middle;
 }
 
+.table.fixed-layout {
+	table-layout: fixed;
+}
+
 .table.summary {
 	color: #FFF;
 }
@@ -176,7 +180,7 @@ header.recept h1 {
 }
 
 .table.detail>tbody>tr>th {
-	background: #90c320;
+	background: #dbdbdb;
 }
 
 .table.detail>tbody>tr>td {
@@ -185,6 +189,10 @@ header.recept h1 {
 
 .table.detail>tbody>tr>td.active, .table.detail>tbody>tr>th.active {
 	background: #0085d0;
+}
+
+.table.detail>tbody>tr>td.active.check>.checkmark {
+	color: #FFF;
 }
 
 .table.detail {
@@ -208,7 +216,7 @@ td.check .checkmark {
 	max-width: 60px;
 }
 
-.page-site-result-upload h2, .resultupload h2 {
+.result-upload h2, .resultupload h2 {
 	text-align:  center;
 	color: #FFF;
 	background: #90c320;
@@ -216,11 +224,11 @@ td.check .checkmark {
 	margin: 0;
 }
 
-.page-site-result-upload .row, .resultupload .row {
+.result-upload .row, .resultupload .row {
 	margin: 0;
 }
 
-.page-site-result-upload .row>div, .resultupload .row>div {
+.result-upload .row>div, .resultupload .row>div {
 	padding: 0;
 	text-align: center;
 }
