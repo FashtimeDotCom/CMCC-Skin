@@ -66,6 +66,7 @@ add_action('init', function(){
 	
 	register_post_type('site_decoration', array(
 		'label'=>'营业厅换装',
+		'public'=>true
 	));
 	
 	isset($_POST['sheets']) && add_action('save_post', import_site_decoration_sheet);
