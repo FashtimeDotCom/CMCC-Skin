@@ -191,6 +191,7 @@ add_action('init', function(){
 					add_post_meta($site_decoration_id, 'frames_received', false);
 					add_post_meta($site_decoration_id, 'pictures_received', false);
 					add_post_meta($site_decoration_id, 'reviewed', false);
+					add_post_meta($site_decoration_id, 'site_region', get_post_meta($site_id, 'region', true));
 					
 					$status = 'imported';
 					add_user_meta(get_current_user_id(), '_admin_notice', 'updated: 已导入文件 ' . get_post($sheet_id)->post_title . ' 中的数据');

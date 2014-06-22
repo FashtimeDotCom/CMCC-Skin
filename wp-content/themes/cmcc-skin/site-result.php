@@ -1,6 +1,12 @@
 <?php
 $result_positions = json_decode(get_option('result_upload_positions'));
 $result_photos = json_decode(get_post_meta(get_the_ID(), 'result_photos', true));
+
+if(isset($_GET['reviewed']) && $_GET['reviewed']){
+	update_post_meta(get_the_ID(), 'reviewed', true);
+	header('Location: ' . get_the_permalink($decoration_id) . '?region-result&region=' . get_post_meta(get_the_ID(), 'site_region', true));
+}
+
 ?>
 
 <header>
@@ -50,7 +56,7 @@ $result_photos = json_decode(get_post_meta(get_the_ID(), 'result_photos', true))
 	<?php } ?>
 	<div class="form-actions">
 		<?php if(1){ ?>
-		<a href="#" class="btn btn-success">审核通过</a>
+		<button onclick="window.location.search += '&reviewed=1'" class="btn btn-success fa fa-check"> 审核通过</button>
 		<?php } ?>
 	</div>
 </div>
