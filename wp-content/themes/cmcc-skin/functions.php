@@ -70,7 +70,7 @@ add_action('init', function(){
 	));
 	
 	isset($_POST['sheets']) && add_action('save_post', import_site_decoration_sheet);
-	add_action('save_post', update_metas);
+	add_action('save_post', 'update_metas');
 	
 	function update_metas($post_id){
 
@@ -230,8 +230,8 @@ add_action('admin_enqueue_scripts', function(){
 	wp_enqueue_script('cmcc-admin');
 });
 
-add_action('admin_head-post-new.php', change_thumbnail_html);
-add_action('admin_head-post.php', change_thumbnail_html);
+add_action('admin_head-post-new.php', 'change_thumbnail_html');
+add_action('admin_head-post.php', 'change_thumbnail_html');
 function change_thumbnail_html( $content ) {
     if ('site' == $GLOBALS['post_type'])
       add_filter('admin_post_thumbnail_html',do_thumb);
