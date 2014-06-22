@@ -4,4 +4,4 @@
 /sys.sublime-*
 /application/logs
 /wp-config.php
-/wp-content/uploads
+# /wp-content/uploads
