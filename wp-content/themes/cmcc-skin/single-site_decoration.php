@@ -79,11 +79,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['result-upload'])){
 
 get_header();
 
-if(empty($_GET)){
+if(empty($_GET['action'])){
 	require get_template_directory() . '/recept-confirmation.php';
-}elseif(isset($_GET['result-upload'])){
+}elseif($_GET['action'] === 'result-upload'){
 	require get_template_directory() . '/result-upload.php';
-}elseif(isset($_GET['result'])){
+}elseif($_GET['action'] === 'result'){
 	require get_template_directory() . '/site-result.php';
 }
 

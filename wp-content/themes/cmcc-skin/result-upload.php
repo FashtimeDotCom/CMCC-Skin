@@ -21,7 +21,7 @@ $result_photos = json_decode(get_post_meta(get_the_ID(), 'result_photos', true))
 			<?php if(count((array) $result_photos) <  8){ ?>
 			<button type="submit" class="btn btn-success">上传</button>
 			<?php }else{ ?>
-			<a href="<?php the_permalink(); ?>?result" class="btn btn-success">预览</a>
+			<a href="<?php the_permalink(); ?>?action=result" class="btn btn-success">预览</a>
 			<?php } ?>
 		</div>
 	</form>

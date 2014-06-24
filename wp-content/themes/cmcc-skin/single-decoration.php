@@ -1,13 +1,13 @@
 <?php
 get_header();
 
-if(empty($_GET)){
+if(empty($_GET['action'])){
 	require get_template_directory() . '/requirement.php';
 }
-elseif(isset($_GET['region-result'])){
+elseif($_GET['action'] === 'region-result'){
 	require get_template_directory() . '/region-result.php';
 }
-elseif(isset($_GET['total-result'])){
+elseif($_GET['action'] === 'total-result'){
 	require get_template_directory() . '/total-result.php';
 }
 

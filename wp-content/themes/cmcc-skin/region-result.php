@@ -19,7 +19,7 @@ $site_decorations = get_posts(array('post_type'=>'site_decoration', 'meta_query'
 		<?php foreach($site_decorations as $site_decoration){ ?>
 		<tr>
 			<td>
-				<a href="<?=get_the_permalink($site_decoration->ID)?>?result">
+				<a href="<?=get_the_permalink($site_decoration->ID)?>?action=result">
 					<?=get_post(get_post_meta($site_decoration->ID, 'site_id', true))->post_title?>
 					<span class="arrow">&raquo;</span>
 				</a>
