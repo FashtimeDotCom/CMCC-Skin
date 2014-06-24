@@ -262,3 +262,10 @@ add_action('admin_notices', function(){
 	}
 	delete_user_meta(get_current_user_id(), '_admin_notice');
 });
+
+if(!function_exists('current_url')){
+	function current_url(){
+		$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+		return $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+	}
+}
