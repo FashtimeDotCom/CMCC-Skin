@@ -19,12 +19,12 @@ $data = array(
 				array(
 					'type'=>'view',
 					'name'=>'签收',
-					'url'=>$wx->oauth_redirect('http://cmcc.uice.lu/my-latest-decoration/?action=reception', '', 'snsapi_base', false),
+					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/my-latest-decoration/?action=reception'),
 				),
 				array(
 					'type'=>'view',
 					'name'=>'上传',
-					'url'=>$wx->oauth_redirect('http://cmcc.uice.lu/my-latest-decoration/?action=upload', '', 'snsapi_base', false)
+					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/my-latest-decoration/?action=upload')
 				),
 			)
 		),
@@ -34,12 +34,12 @@ $data = array(
 				array(
 					'type'=>'view',
 					'name'=>'片区',
-					'url'=>$wx->oauth_redirect('http://cmcc.uice.lu/latest-decoration?action=region-result', '', 'snsapi_base', false),
+					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/latest-decoration?action=region-result'),
 				),
 				array(
 					'type'=>'view',
 					'name'=>'总览',
-					'url'=>$wx->oauth_redirect('http://cmcc.uice.lu/latest-decoration?action=total-result', '', 'snsapi_base', false),
+					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/latest-decoration?action=total-result'),
 				),
 			)
 		),
