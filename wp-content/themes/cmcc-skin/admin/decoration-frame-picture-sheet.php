@@ -27,9 +27,9 @@
 	<?php foreach($site_decorations as $site_decoration){ ?>
 	<li class="site-name">
 		<h3><?=get_post(get_post_meta($site_decoration->ID, 'site_id', true))->post_title?>
-			<?php if(get_post_meta($site_decoration->ID, 'frames_received', true)){ ?><span class="dashicons dashicons-pressthis"></span><?php } ?>
-			<?php if(get_post_meta($site_decoration->ID, 'pictures_received', true)){ ?><span class="dashicons dashicons-format-image"></span><?php } ?>
-			<?php if(get_post_meta($site_decoration->ID, 'reviewed', true)){ ?><span class="dashicons dashicons-yes"></span><?php } ?>
+			<?php if(get_post_meta($site_decoration->ID, 'frames_received', true)){ ?><span class="dashicons dashicons-pressthis" title="器架已签收"></span><?php } ?>
+			<?php if(get_post_meta($site_decoration->ID, 'pictures_received', true)){ ?><span class="dashicons dashicons-format-image" title="画面已签收"></span><?php } ?>
+			<?php if(get_post_meta($site_decoration->ID, 'reviewed', true)){ ?><span class="dashicons dashicons-yes" title="结果已审核"></span><?php } ?>
 		</h3>
 	</li>
 	<?php	foreach(json_decode(get_post_meta($site_decoration->ID, 'frames', true)) as $frame_name => $frame){ ?>
