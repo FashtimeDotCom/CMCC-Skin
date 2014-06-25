@@ -428,4 +428,9 @@ class WeixinAPI {
 		
 	}
 	
+	function get_menu(){
+		$menu = json_decode(file_get_contents('https://api.weixin.qq.com/cgi-bin/menu/get?access_token=' . $this->get_access_token()));
+		return $menu;
+	}
+	
 }
