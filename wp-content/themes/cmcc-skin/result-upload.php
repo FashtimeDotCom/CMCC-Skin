@@ -1,4 +1,7 @@
 <?php
+/*
+ * Sub Template in Single "site_decoration"
+ */
 $result_positions = json_decode(get_option('result_upload_positions'));
 $result_photos = json_decode(get_post_meta(get_the_ID(), 'result_photos', true));
 ?>

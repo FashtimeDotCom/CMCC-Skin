@@ -1,10 +1,13 @@
 <?php
+/*
+ * Sub Template in Single "site_decoration"
+ */
 $result_positions = json_decode(get_option('result_upload_positions'));
 $result_photos = json_decode(get_post_meta(get_the_ID(), 'result_photos', true));
 
 if(isset($_GET['reviewed']) && $_GET['reviewed']){
 	update_post_meta(get_the_ID(), 'reviewed', true);
-	header('Location: ' . get_the_permalink($decoration_id) . '?region-result&region=' . get_post_meta(get_the_ID(), 'site_region', true));
+	header('Location: ' . get_the_permalink($decoration_id) . '?action=region-result&region=' . get_post_meta(get_the_ID(), 'site_region', true));
 }
 
 ?>

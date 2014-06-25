@@ -1,4 +1,8 @@
 <?php
+/*
+ * Sub Template in Single "decoration"
+ */
+
 $region = $_GET['region'];
 $site_decorations = get_posts(array('post_type'=>'site_decoration', 'meta_query'=>array(array('key'=>'decoration', 'value'=>get_the_ID()), array('key'=>'site_region', 'value'=>$region))));
 ?>

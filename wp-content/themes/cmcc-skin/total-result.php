@@ -1,4 +1,32 @@
-<?php get_header(); ?>
+<?php
+/*
+ * Sub Template in Single "decoration"
+ */
+$regions = json_decode(get_option('regions'));
+$site_decorations = get_posts(array('post_type'=>'site_decoration','posts_per_page'=>-1,'decoration'=>get_the_ID()));
+$region_result = array(
+//	'<region_name>'=>array('total'=>0, 'received'=>0, 'reviewed'=>0);
+);
+foreach($site_decorations as $site_decoration){
+	$region = get_post_meta($site_decoration->ID, 'site_region', true);
+	$frames_received = get_post_meta($site_decoration->ID, 'frames_received', true);
+	$pictures_received = get_post_meta($site_decoration->ID, 'pictures_received', true);
+	$reviewed = get_post_meta($site_decoration->ID, 'reviewed', true);
+	
+	empty($region_result[$region]) && $region_result[$region] = array('total'=>0, 'received'=>0, 'reviewed'=>0);
+	
+	$region_result[$region]['total'] ++;
+	
+	if($frames_received && $pictures_received){
+		$region_result[$region]['received'] ++;
+	}
+	
+	if($reviewed){
+		$region_result[$region]['reviewed'] ++;
+	}
+	
+}
+?>	
 
 <header>
 	<h1>签收换装完成情况</h1>
@@ -13,67 +41,12 @@
 		</tr>
 	</thead>
 	<tbody>
+		<?php foreach($regions as $region){ ?>
 		<tr>
-			<td><a href="<?=site_url()?>admin/regionresult">南区 <span class="arrow">&raquo;</span></a></td>
-			<td class="check"></td>
-			<td class="check"></td>
+			<td><a href="<?php the_permalink(); ?>?action=region-result&region=<?=$region?>"><?=$region?> <span class="arrow">&raquo;</span></a></td>
+			<td><?=$region_result[$region]['received']?> / <?=$region_result[$region]['total']?></td>
+			<td><?=$region_result[$region]['reviewed']?> / <?=$region_result[$region]['total']?></td>
 		</tr>
-		<tr>
-			<td><a href="<?=site_url()?>admin/regionresult">北区 <span class="arrow">&raquo;</span></a></td>
-			<td class="check"></td>
-			<td class="check"></td>
-		</tr>
-		<tr>
-			<td><a href="<?=site_url()?>admin/regionresult">西区 <span class="arrow">&raquo;</span></a></td>
-			<td class="check"></td>
-			<td class="check"></td>
-		</tr>
-		<tr>
-			<td><a href="<?=site_url()?>admin/regionresult">浦东区 <span class="arrow">&raquo;</span></a></td>
-			<td class="check"></td>
-			<td class="check"></td>
-		</tr>
-		<tr>
-			<td><a href="<?=site_url()?>admin/regionresult">奉贤区 <span class="arrow">&raquo;</span></a></td>
-			<td class="check"></td>
-			<td class="check"></td>
-		</tr>
-		<tr>
-			<td><a href="<?=site_url()?>admin/regionresult">金山区 <span class="arrow">&raquo;</span></a></td>
-			<td class="check"></td>
-			<td class="check"></td>
-		</tr>
-		<tr>
-			<td><a href="<?=site_url()?>admin/regionresult">闵行区 <span class="arrow">&raquo;</span></a></td>
-			<td class="check"></td>
-			<td class="check"></td>
-		</tr>
-		<tr>
-			<td><a href="<?=site_url()?>admin/regionresult">嘉定区 <span class="arrow">&raquo;</span></a></td>
-			<td class="check"></td>
-			<td class="check"></td>
-		</tr>
-		<tr>
-			<td><a href="<?=site_url()?>admin/regionresult">青浦区 <span class="arrow">&raquo;</span></a></td>
-			<td class="check"></td>
-			<td class="check"></td>
-		</tr>
-		<tr>
-			<td><a href="<?=site_url()?>admin/regionresult">松江区 <span class="arrow">&raquo;</span></a></td>
-			<td class="check"></td>
-			<td class="check"></td>
-		</tr>
-		<tr>
-			<td><a href="<?=site_url()?>admin/regionresult">宝山区 <span class="arrow">&raquo;</span></a></td>
-			<td class="check"></td>
-			<td class="check"></td>
-		</tr>
-		<tr>
-			<td><a href="<?=site_url()?>admin/regionresult">崇明区 <span class="arrow">&raquo;</span></a></td>
-			<td class="check"></td>
-			<td class="check"></td>
-		</tr>
+		<?php } ?>
 	</tbody>
 </table>
-
-<?php get_footer(); ?>

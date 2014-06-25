@@ -29,19 +29,9 @@ $data = array(
 			)
 		),
 		array(
-			'name'=>'管理',
-			'sub_button'=>array(
-				array(
-					'type'=>'view',
-					'name'=>'片区',
-					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/latest-decoration?action=region-result'),
-				),
-				array(
-					'type'=>'view',
-					'name'=>'总览',
-					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/latest-decoration?action=total-result'),
-				),
-			)
+			'name'=>'汇总',
+			'type'=>'view',
+			'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/latest-decoration?action=total-result'),
 		),
 	)
 );

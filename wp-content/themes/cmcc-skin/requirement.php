@@ -1,4 +1,7 @@
 <?php
+/*
+ * Sub Template in Single "decoration"
+ */
 $pictures = json_decode(get_post_meta(get_the_ID(), 'pictures', true), JSON_OBJECT_AS_ARRAY);
 $picture_groups = array();
 for($group = 0; $group < ceil( count($pictures) / 6 ); $group ++){
