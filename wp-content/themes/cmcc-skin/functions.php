@@ -227,6 +227,7 @@ add_action('wp_enqueue_scripts', function(){
 	wp_enqueue_style('bootstrap');
 	wp_enqueue_style('style');
 	wp_enqueue_script('jquery');
+	// TODO 小米微信中才需要载入的样式，还应加入微信MicroMessege UA 字串
 	if(strpos($_SERVER['HTTP_USER_AGENT'], ' MI ') !== false){
 		wp_enqueue_style('mi');
 	}
@@ -280,6 +281,7 @@ add_action('admin_init', function(){
 	get_role('editor')->add_cap('review_site_result');
 });
 
+// TODO 这么做只是为了使用中文名称注册营业厅管理人员，存在一些安全性问题
 add_filter('sanitize_user', function( $username, $raw_username, $strict ) {
 	if( !$strict )
 		return $username;

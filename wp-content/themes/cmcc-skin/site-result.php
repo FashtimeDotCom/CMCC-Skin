@@ -9,7 +9,7 @@ if(isset($_GET['reviewed']) && $_GET['reviewed'] && current_user_can('review_sit
 	update_post_meta(get_the_ID(), 'reviewed', true);
 	header('Location: ' . get_the_permalink($decoration_id) . '?action=region-result&region=' . get_post_meta(get_the_ID(), 'site_region', true));
 }
-
+// TODO 标题应该提供返回的链接，否则审核完成之后无法返回区域列表
 ?>
 
 <header>

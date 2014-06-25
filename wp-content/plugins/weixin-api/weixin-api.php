@@ -176,7 +176,8 @@ class WeixinAPI {
 		}
 		
 		$auth_result->expires_at = $auth_result->expires_in + time();
-		
+		// TODO 每次使用code重新授权都会重新存入一个token，产生大量垃圾文件，考虑存入wp_usermeta表，根据usermeta反查用户。
+		// 但菜单又是一个静态链接，只能是带code的授权url
 		update_option('wx_oauth_token_' . $auth_result->access_token, json_encode($auth_result));
 		
 		return $auth_result;
