@@ -11,7 +11,7 @@ $data = array(
 		array(
 			'name'=>'换装',
 			'type'=>'view',
-			'url'=>'http://cmcc.uice.lu/latest-decoration/'
+			'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/latest-decoration/')
 		),
 		array(
 			'name'=>'签收',
@@ -46,4 +46,7 @@ $data = array(
 	)
 );
 
-var_export($wx->create_menu($data));
+$wx->create_menu($data);
+
+header('Content-Type: application/json');
+echo json_encode($wx->get_menu());

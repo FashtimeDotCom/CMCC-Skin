@@ -269,7 +269,12 @@ body.page-site-signup {
 }
 
 .page-site-signup .input-form {
-	margin-top: 20%;
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	top: 75px;
+	min-height: 405px;
+	padding-top: 20%;
 }
 
 .page-site-signup .input-form form {
@@ -303,10 +308,11 @@ body.page-site-signup {
 	background: #006bac;
 	text-align: center;
 	height: 100px;
+	margin-left: -17%;
+	width: 100%;
+	/* margin-top: 40%; */
 	position: absolute;
 	bottom: 0;
-	left: 0;
-	right: 0;
 }
 
 .page-site-signup .form-actions .btn {
