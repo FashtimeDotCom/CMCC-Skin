@@ -209,6 +209,7 @@ add_action('init', function(){
 add_action('wp_enqueue_scripts', function(){
 	wp_register_style('bootstrap', 'http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css');
 	wp_register_style('font-awesome', '//libs.baidu.com/fontawesome/4.0.3/css/font-awesome.min.css');
+	wp_register_style('mi', get_template_directory_uri() . '/css/mi.css');
 	wp_register_script('bootstrap', 'http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js');
 	wp_register_script('swipe', get_template_directory_uri() . '/js/swipe.js');
 	wp_register_style('style', get_template_directory_uri() . '/style.css');
@@ -216,6 +217,9 @@ add_action('wp_enqueue_scripts', function(){
 	wp_enqueue_style('bootstrap');
 	wp_enqueue_style('style');
 	wp_enqueue_script('jquery');
+	if(strpos($_SERVER['HTTP_USER_AGENT'], ' MI ') !== false){
+		wp_enqueue_style('mi');
+	}
 });
 
 add_action('wp_foot', function(){

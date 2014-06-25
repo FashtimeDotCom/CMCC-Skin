@@ -41,6 +41,10 @@ header h1 {
 	color: #FFF;
 }
 
+select {
+	background: none; // disable iPhone select background with Bootstrap
+}
+
 .admin header h1 {
 	background: #0085d0;
 }
