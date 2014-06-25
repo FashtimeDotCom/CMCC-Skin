@@ -49,6 +49,11 @@ add_action('init', function(){
 		'supports'=>array('title','thumbnail'),
 		'menu_icon'=>'dashicons-art',
 		'register_meta_box_cb'=>function($post){
+		
+			add_meta_box('base_info', '基本信息', function($post){
+				require get_template_directory() . '/admin/decoration_base_info.php';
+			}, 'decoration', 'normal');
+		
 			add_meta_box('pictures', '画面', function($post){
 				$pictures = json_decode(get_post_meta($post->ID, 'pictures', true), JSON_OBJECT_AS_ARRAY);
 				!$pictures && $pictures = array();
@@ -85,6 +90,9 @@ add_action('init', function(){
 		}
 		elseif($_POST['post_type'] === 'decoration'){
 			$metas = array(
+				'requirement',
+				'date',
+				'instruction',
 				'pictures',
 				'sheets'
 			);

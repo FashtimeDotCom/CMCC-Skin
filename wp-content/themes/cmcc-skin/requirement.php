@@ -47,7 +47,7 @@ for($group = 0; $group < ceil( count($pictures) / 6 ); $group ++){
 				换装要求
 			</th>
 			<td>
-				<?=get_post_meta(get_the_ID(), 'description', true)?>
+				<?=get_post_meta(get_the_ID(), 'requirement', true)?>
 			</td>
 		</tr>
 		<tr>
@@ -63,7 +63,7 @@ for($group = 0; $group < ceil( count($pictures) / 6 ); $group ++){
 				换装方法
 			</th>
 			<td>
-				<?=get_post_meta(get_the_ID(), 'method', true)?>
+				<?=get_post_meta(get_the_ID(), 'instruction', true)?>
 			</td>
 		</tr>
 		<tr>
