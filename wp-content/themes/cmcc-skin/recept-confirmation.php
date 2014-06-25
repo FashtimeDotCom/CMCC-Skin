@@ -159,8 +159,9 @@ $(function(){
 
 	$(':button.pictures-received').on('click', function(){
 		$.post(window.location.href, {picture_received: true}, function(){
-			window.location.search = 'action=result-upload';
+			alert('请尽快进行换装，上传换装图片');
 		})
+		
 	});
 
 });
