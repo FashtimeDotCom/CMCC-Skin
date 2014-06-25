@@ -28,5 +28,5 @@ $site_decoration_id = $site_decorations[0]->ID;
 
 $decoration_id = get_post_meta($site_decoration_id, 'decoration', true);
 
-header('Location: ' . get_permalink($decoration_id));
+header('Location: ' . get_permalink($decoration_id) . '?' . build_query($_GET));
 exit;

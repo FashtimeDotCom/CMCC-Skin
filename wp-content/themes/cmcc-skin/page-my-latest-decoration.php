@@ -5,15 +5,13 @@
 $wx = new WeixinAPI();
 
 $auth_info = $wx->get_oauth_info();
-
 $users = get_users(array('meta_key'=>'wx_openid','meta_value'=>$auth_info->openid));
 
 if(!$users){
 	$query_args = array(
 		'access_token'=>$auth_info->access_token,
-		'forward_to'=>current_url()
+		'forward_to'=>urlencode_deep(current_url())
 	);
-	echo site_url() . '/site-signup/?' . build_query($query_args);
 	header('Location: ' . site_url() . '/site-signup/?' . build_query($query_args));
 	exit;
 }
@@ -28,5 +26,5 @@ if(empty($site_decorations)){
 
 $site_decoration_id = $site_decorations[0]->ID;
 
-header('Location: ' . get_permalink($site_decoration_id));
+header('Location: ' . get_permalink($site_decoration_id) . '?' . build_query($_GET));
 exit;

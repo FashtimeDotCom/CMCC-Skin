@@ -19,12 +19,12 @@ $data = array(
 				array(
 					'type'=>'view',
 					'name'=>'签收',
-					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/my-latest-decoration/?action=reception'),
+					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/my-latest-decoration/?action=recept-confirmation'),
 				),
 				array(
 					'type'=>'view',
 					'name'=>'上传',
-					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/my-latest-decoration/?action=upload')
+					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/my-latest-decoration/?action=result-upload')
 				),
 			)
 		),

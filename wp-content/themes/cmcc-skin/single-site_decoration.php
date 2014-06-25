@@ -16,7 +16,7 @@ foreach($frames as $name => $frame){
 		}
 	}
 }
-if($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_GET)){
+if($_SERVER['REQUEST_METHOD'] === 'POST' && (empty($_GET['action']) || $_GET['action'] === 'recept-confirmation')){
 	
 	if(isset($_POST['frame_received'])){
 		if(is_array($_POST['frame_received'])){
@@ -55,7 +55,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_GET)){
 	exit;
 }
 
-if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['result-upload'])){
+if($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'result-upload'){
 	
 	include_once ABSPATH . 'wp-admin/includes/media.php';
 	include_once ABSPATH . 'wp-admin/includes/file.php';
@@ -79,7 +79,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['result-upload'])){
 
 get_header();
 
-if(empty($_GET['action'])){
+if(empty($_GET['action']) || $_GET['action'] === 'recept-confirmation'){
 	require get_template_directory() . '/recept-confirmation.php';
 }elseif($_GET['action'] === 'result-upload'){
 	require get_template_directory() . '/result-upload.php';
@@ -87,4 +87,4 @@ if(empty($_GET['action'])){
 	require get_template_directory() . '/site-result.php';
 }
 
-get_footer(); ?>
+get_footer();

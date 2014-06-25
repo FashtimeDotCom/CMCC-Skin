@@ -55,7 +55,7 @@ if(isset($_GET['reviewed']) && $_GET['reviewed']){
 	</div>
 	<?php } ?>
 	<div class="form-actions">
-		<?php if(1){ ?>
+		<?php if(current_user_can('review_site_result')){ ?>
 		<button onclick="window.location.search += '&reviewed=1'" class="btn btn-success fa fa-check"> 审核通过</button>
 		<?php } ?>
 	</div>

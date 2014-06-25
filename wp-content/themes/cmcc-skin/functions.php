@@ -263,6 +263,10 @@ add_action('admin_notices', function(){
 	delete_user_meta(get_current_user_id(), '_admin_notice');
 });
 
+add_action('admin_init', function(){
+	get_role('editor')->add_cap('review_site_result');
+});
+
 add_filter('sanitize_user', function( $username, $raw_username, $strict ) {
 	if( !$strict )
 		return $username;
