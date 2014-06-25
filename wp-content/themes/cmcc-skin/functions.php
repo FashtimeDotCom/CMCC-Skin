@@ -263,6 +263,12 @@ add_action('admin_notices', function(){
 	delete_user_meta(get_current_user_id(), '_admin_notice');
 });
 
+add_filter('sanitize_user', function( $username, $raw_username, $strict ) {
+	if( !$strict )
+		return $username;
+	return sanitize_user(stripslashes($raw_username), false);
+}, 10, 3);
+
 if(!function_exists('current_url')){
 	function current_url(){
 		$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
