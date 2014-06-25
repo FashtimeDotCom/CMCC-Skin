@@ -5,7 +5,7 @@
 $result_positions = json_decode(get_option('result_upload_positions'));
 $result_photos = json_decode(get_post_meta(get_the_ID(), 'result_photos', true));
 
-if(isset($_GET['reviewed']) && $_GET['reviewed']){
+if(isset($_GET['reviewed']) && $_GET['reviewed'] && current_user_can('review_site_result')){
 	update_post_meta(get_the_ID(), 'reviewed', true);
 	header('Location: ' . get_the_permalink($decoration_id) . '?action=region-result&region=' . get_post_meta(get_the_ID(), 'site_region', true));
 }
