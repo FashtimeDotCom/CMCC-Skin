@@ -16,6 +16,7 @@ foreach($frames as $name => $frame){
 		}
 	}
 }
+// TODO 需要验证身份
 if($_SERVER['REQUEST_METHOD'] === 'POST' && (empty($_GET['action']) || $_GET['action'] === 'recept-confirmation')){
 	
 	if(isset($_POST['frame_received'])){
