@@ -129,7 +129,20 @@ select {
 	width: 100%;
 }
 
+.page-site-setup-sample h1 {
+	background: #0085d0;
+}
+
 .page-site-setup-sample h3 {
+	text-align: center;
+}
+
+.page-site-setup-sample .table.detail>tbody>tr>td a {
+	color: #000;
+	font-size: 15px;
+}
+
+.page-site-setup-sample h2 {
 	text-align: center;
 }
 
