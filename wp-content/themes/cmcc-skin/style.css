@@ -252,7 +252,25 @@ td.check .checkmark {
 }
 
 .result-upload input[type="file"] {
-	margin-left: 4%;
+	position: relative;
+	top: -25px;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    -moz-opacity: 0;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+
+.result-upload .preview.empty {
+	margin-bottom: 47px;
+}
+
+.result-upload .upload-file {
+	padding: 10px 0;
+	font-size: 18px;
+	color: #0085d0;
+	margin-bottom: -25px;
+	overflow: hidden;
 }
 
 .result-upload .form-actions {
