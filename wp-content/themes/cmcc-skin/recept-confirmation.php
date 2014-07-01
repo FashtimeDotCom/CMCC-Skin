@@ -40,9 +40,9 @@
 		<tr>
 			<td><?=$i?></td>
 			<td class="frame-type"><?=$name?></td>
-			<td><img src="<?=get_template_directory_uri()?>/img/<?=urlencode($name)?>.jpg" class="sample-picture"></td>
+			<td><a href="<?=get_template_directory_uri()?>/img/<?=urlencode($name)?>.jpg"><img src="<?=get_template_directory_uri()?>/img/<?=urlencode($name)?>.jpg" class="sample-picture"></a></td>
 			<td><?=$frame->quantity?></td>
-			<td class="check"><span class="fa fa-check checkmark"<?php if(!$frame->received){ ?> style="display:none"<?php } ?>></span></td>
+			<td class="check"><span class="fa fa-check checkmark <?php if($frame->received){ ?>received<?php }else{ ?>placeholder<?php } ?>"></span></td>
 		</tr>
 		<?php } ?>
 	</tbody>
@@ -68,9 +68,9 @@
 		<tr>
 			<td class="frame-type"><?=$name?></td>
 			<td><?=$frame_types->$name->size?></td>
-			<td class="dropdown"><?=$frame->quantity?><span class="caret"></span></td>
+			<td class="dropdown"><?=$frame->quantity?><span class="fa fa-caret-down"></span></td>
 			<td><?=$frame_types->$name->material?></td>
-			<td class="check"><span class="fa fa-check checkmark"<?php if(!$frame->pictures_received){ ?> style="display:none"<?php } ?>></span></td>
+			<td class="check"><span class="fa fa-check checkmark <?php if($frame->pictures_received){ ?>received<?php }else{ ?>placeholder<?php } ?>"></span></td>
 		</tr>
 		<tr class="expanded">
 			<td colspan="5">
@@ -126,12 +126,29 @@ $(function(){
 	// TODO 画面签收，不展开应该不能打勾
 	// TODO 画面签收，查看画面大图后返回，返回到了框架接受的页面，考虑通过写入history解决
 	$('td.check').on('click', function(){
-		$(this).children('.checkmark').toggle();
+		
+		var checkmark = $(this).children('.checkmark');
+		
+		checkmark.addClass('waiting');
+		
+		if(checkmark.hasClass('received')){
+			checkmark.removeClass('received').addClass('placeholder');
+		}
+		else{
+			checkmark.removeClass('placeholder');
+		}
+		
 		var postData = {frame_received: {}, picture_received: {}};
 		var frameType = $(this).siblings('.frame-type').text();
 		var postScope = $(this).closest('table').hasClass('frames') ? 'frame_received' : 'picture_received';
-		frameType && (postData[postScope][frameType] = $(this).children('.checkmark').is(':visible'));
+		
+		frameType && (postData[postScope][frameType] = !checkmark.hasClass('placeholder'));
+		
 		$.post(window.location.href, postData, function(unreceived){
+			
+			checkmark.removeClass('waiting');
+			postData[postScope][frameType] ? checkmark.addClass('received') : checkmark.addClass('placeholder');
+			
 			if(unreceived.frames === 0){
 				$('table.frames :button.frames-received').removeClass('disabled');
 			}else{
@@ -144,6 +161,7 @@ $(function(){
 				$('table.pictures :button.pictures-received').addClass('disabled');
 			}
 		});
+		
 	});
 
 	$('td.dropdown').on('click', function(){
@@ -167,7 +185,7 @@ $(function(){
 		})
 		
 	});
-
+	
 });
 })(jQuery);
 </script>

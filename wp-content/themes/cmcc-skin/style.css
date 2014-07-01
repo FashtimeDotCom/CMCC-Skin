@@ -42,7 +42,7 @@ header h1 {
 }
 
 select {
-	background: none; // disable iPhone select background with Bootstrap
+	background: none !important; // disable iPhone select background with Bootstrap
 }
 
 .admin header h1 {
@@ -100,6 +100,10 @@ select {
 	border-radius: 0;
 	border: none;
 	padding: 5px 20px;
+}
+
+.btn.disabled {
+	background: #888;
 }
 
 .btn-success {
@@ -225,12 +229,26 @@ header.recept h1 {
 }
 
 td.check .checkmark {
-	font-size:1.8em;color:#90c320;
+	font-size: 1.8em;
+	color: #90c320;
 }
 
-.page-site-frame-receiptcon-firmation #receipt-detail .sample-picture {
+td.check .checkmark.placeholder {
+	color: #DDD;
+}
+
+td.check .checkmark.waiting {
+	color: #e6b800;
+}
+
+.page-site-frame-receiptcon-confirmation #receipt-detail .sample-picture {
 	height: 60px;
 	max-width: 60px;
+}
+
+#receipt-detail .dropdown .fa.fa-caret-down {
+	color: #0085d0;
+	font-size: 18px;
 }
 
 .result-upload h2, .resultupload h2 {
