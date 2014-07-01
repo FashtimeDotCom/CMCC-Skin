@@ -79,5 +79,7 @@ for($group = 0; $group < ceil( count($pictures) / 6 ); $group ++){
 
 <script type="text/javascript" src="<?=get_template_directory_uri()?>/js/swipe.js"></script>
 <script type="text/javascript">
-	Swipe(document.getElementById('pictures'));
+	Swipe(document.getElementById('pictures'), {
+		continuous: false
+	});
 </script>
