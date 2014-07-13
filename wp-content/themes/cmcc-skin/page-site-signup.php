@@ -43,7 +43,7 @@ get_header();
 </header>
 
 <div class="input-form">
-	<form method="post" class="form-horizontal">
+	<form id="site-signup-form" method="post" class="form-horizontal">
 		<div class="form-group">
 			<label for="region" class="col-xs-4 control-label">区域</label>
 			<div class="col-xs-8">
@@ -82,7 +82,9 @@ get_header();
 
 <script type="text/javascript">
 jQuery(function($){
-	var regionSites = <?=json_encode($region_sites, JSON_UNESCAPED_UNICODE)?>;
+	
+		var regionSites = <?=json_encode($region_sites, JSON_UNESCAPED_UNICODE)?>;
+	
 	$('#region').on('change', function(){
 		var sites = regionSites[$(this).val()];
 		$('#site').empty();
@@ -90,6 +92,21 @@ jQuery(function($){
 			$('#site').append($('<option/>', {value: sites[i], text: sites[i]}));
 		}
 	}).trigger('change');
+	
+	$('#site-signup-form').on('submit', function(){
+		if($(this).find(':input[name="username"]').val() === ''){
+			alert('请填写负责人名称');
+			return false;
+		}
+		
+		var phone = $(this).find(':input[name="phone"]').val();
+		if(phone.length !== 11 || phone.substr(0, 1) !== '1'){
+			alert('请填写正确的手机号');
+			return false;
+		}
+		
+	});
+	
 });
 </script>
 
