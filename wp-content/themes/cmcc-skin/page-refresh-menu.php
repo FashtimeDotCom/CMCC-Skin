@@ -9,7 +9,7 @@ $wx->remove_menu();
 $data = array(
 	'button'=>array(
 		array(
-			'name'=>'换装',
+			'name'=>'发布',
 			'type'=>'view',
 			'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/latest-decoration/')
 		),
