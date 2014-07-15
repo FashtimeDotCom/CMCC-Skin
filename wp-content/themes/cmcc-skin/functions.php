@@ -222,7 +222,7 @@ add_action('wp_enqueue_scripts', function(){
 	wp_register_style('mi', get_template_directory_uri() . '/css/mi.css');
 	wp_register_script('bootstrap', 'http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js');
 	wp_register_script('swipe', get_template_directory_uri() . '/js/swipe.js');
-	wp_register_style('style', get_template_directory_uri() . '/style.css', array(), '2014-07-01');
+	wp_register_style('style', get_template_directory_uri() . '/style.css', array(), '2014-07-15');
 	wp_enqueue_style('font-awesome');
 	wp_enqueue_style('bootstrap');
 	wp_enqueue_style('style');
