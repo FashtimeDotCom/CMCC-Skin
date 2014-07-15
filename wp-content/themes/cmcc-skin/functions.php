@@ -63,6 +63,7 @@ add_action('init', function(){
 			add_meta_box('frame-picture-sheet', '各营业厅器架画面对应表', function($post){
 				$sheets = json_decode(get_post_meta($post->ID, 'sheets', true), JSON_OBJECT_AS_ARRAY);
 				!$sheets && $sheets = array();
+				// TODO 已导入的文件如果从美体裤删除，会在这里显示一个空项
 				$site_decorations = get_posts(array('post_type'=>'site_decoration', 'meta_key'=>'decoration', 'meta_value'=>$post->ID, 'posts_per_page'=>-1));
 				require get_template_directory() . '/admin/decoration-frame-picture-sheet.php';
 			}, 'decoration', 'normal');

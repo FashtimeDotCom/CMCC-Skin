@@ -41,6 +41,10 @@ body{
 	margin: 5px;
 }
 
+.site-frames .frame .picture {
+	color: #000;
+}
+
 .site-frames .frame.received, .site-frames .frame .picture.received {
 	color: #0A0;
 }
