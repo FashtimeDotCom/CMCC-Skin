@@ -294,3 +294,42 @@ if(!function_exists('current_url')){
 		return $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 	}
 }
+
+// add columns to User panel list page
+add_filter('manage_users_columns', function($column) {
+	
+	$column = array (
+		'cb' => '<input type="checkbox" />',
+		'username' => '用户名',
+		'name' => '姓名',
+		'email' => '电子邮件',
+		'phone' => '手机',
+		'role' => '角色',
+		'posts' => '文章',
+	);
+    
+    return $column;
+	
+});
+
+// add the data
+add_filter('manage_users_custom_column', function ($val, $column_name, $user_id){
+    switch ($column_name) {
+        case 'phone' :
+            return get_user_meta($user_id, 'phone', true);
+        default:
+    }
+    return;
+}, 10, 3 );
+
+/**
+ * add extra field for user in admin panel
+ */
+add_filter('user_contactmethods', function($profile_fields) {
+
+	$profile_fields=array(
+		'phone'=>'手机',
+	);
+
+	return $profile_fields;
+});
