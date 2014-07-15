@@ -63,7 +63,7 @@ add_action('init', function(){
 			add_meta_box('frame-picture-sheet', '各营业厅器架画面对应表', function($post){
 				$sheets = json_decode(get_post_meta($post->ID, 'sheets', true), JSON_OBJECT_AS_ARRAY);
 				!$sheets && $sheets = array();
-				$site_decorations = get_posts(array('post_type'=>'site_decoration', 'meta_key'=>'decoration', 'meta_value'=>$post->ID));
+				$site_decorations = get_posts(array('post_type'=>'site_decoration', 'meta_key'=>'decoration', 'meta_value'=>$post->ID, 'posts_per_page'=>-1));
 				require get_template_directory() . '/admin/decoration-frame-picture-sheet.php';
 			}, 'decoration', 'normal');
 		}
@@ -131,7 +131,7 @@ add_action('init', function(){
 
 					$site_name = $sheet->getTitle();
 
-					$site_query_result = get_posts(array('post_type'=>'site', 'name'=>$site_name));
+					$site_query_result = get_posts(array('post_type'=>'site', 'name'=>$site_name, 'posts_per_page'=>-1));
 
 					if(empty($site_query_result)){
 						add_user_meta(get_current_user_id(), '_admin_notice', 'error: 系统中没有' . $site_name . '，请先添加这个营业厅');
@@ -172,7 +172,7 @@ add_action('init', function(){
 
 					}
 
-					$site_decoration_query_result = get_posts(array('post_type'=>'site_decoration', 'meta_query'=>array(array('key'=>'site', 'value'=>$site_id),array('key'=>'decoration', 'value'=>$post_id))));
+					$site_decoration_query_result = get_posts(array('post_type'=>'site_decoration', 'meta_query'=>array(array('key'=>'site', 'value'=>$site_id),array('key'=>'decoration', 'value'=>$post_id)), 'posts_per_page'=>-1));
 
 					// 如果没有这个营业厅的换装数据，先创建
 					// TODO decoration的pictures和sheets meta数据会被一同保存到site_decoration中，目前不影响使用

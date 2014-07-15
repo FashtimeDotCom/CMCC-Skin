@@ -4,7 +4,7 @@
  */
 
 $region = $_GET['region'];
-$site_decorations = get_posts(array('post_type'=>'site_decoration', 'meta_query'=>array(array('key'=>'decoration', 'value'=>get_the_ID()), array('key'=>'site_region', 'value'=>$region))));
+$site_decorations = get_posts(array('post_type'=>'site_decoration', 'meta_query'=>array(array('key'=>'decoration', 'value'=>get_the_ID()), array('key'=>'site_region', 'value'=>$region)), 'posts_per_page'=>-1));
 ?>
 <header>
 	<h1><?=$region?></h1>

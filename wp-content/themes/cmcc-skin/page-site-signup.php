@@ -6,7 +6,7 @@ $auth_info = $wx->get_oauth_info();
 
 if(isset($_POST['signup'])){
 	
-	$sites = get_posts(array('post_type'=>'site','name'=>$_POST['site_name']));
+	$sites = get_posts(array('post_type'=>'site','name'=>$_POST['site_name'], 'posts_per_page'=>-1));
 	empty($sites) && exit('Site name invalid.');
 	
 	$site_id = $sites[0]->ID;
