@@ -65,6 +65,7 @@
 	</thead>
 	<tbody>
 		<?php foreach($frames as $name => $frame){ ?>
+		<?php if(count($frame->pictures) === 0) continue; ?>
 		<tr>
 			<td class="frame-type"><?=$name?></td>
 			<td><?=$frame_types->$name->size?></td>
