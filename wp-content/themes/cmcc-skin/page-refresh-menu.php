@@ -18,8 +18,13 @@ $data = array(
 			'sub_button'=>array(
 				array(
 					'type'=>'view',
-					'name'=>'签收',
-					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/my-latest-decoration/?action=recept-confirmation'),
+					'name'=>'器架签收',
+					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/my-latest-decoration/?action=recept-confirmation&step=frame'),
+				),
+				array(
+					'type'=>'view',
+					'name'=>'画面签收',
+					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/my-latest-decoration/?action=recept-confirmation&step=picture'),
 				),
 				array(
 					'type'=>'view',

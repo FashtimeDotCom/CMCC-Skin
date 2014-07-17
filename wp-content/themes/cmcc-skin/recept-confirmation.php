@@ -23,7 +23,7 @@
 	</tbody>
 </table>
 
-<table id="receipt-detail" class="table table-bordered frames"<?php if(get_post_meta(get_the_ID(), 'frames_received', true)){ ?> style="display:none"<?php } ?>>
+<table id="receipt-detail" class="table table-bordered frames"<?php if(!isset($_GET['step']) || $_GET['step'] !== 'frame'){ ?> style="display:none"<?php } ?>>
 	<thead>
 		<tr>
 			<td>序号</td>
@@ -53,7 +53,7 @@
 	</tfoot>
 </table>
 
-<table id="receipt-detail" class="table table-bordered pictures"<?php if(!get_post_meta(get_the_ID(), 'frames_received', true)){ ?> style="display:none"<?php } ?>>
+<table id="receipt-detail" class="table table-bordered pictures"<?php if(!isset($_GET['step']) || $_GET['step'] !== 'picture'){ ?> style="display:none"<?php } ?>>
 	<thead>
 		<tr>
 			<td>物料名称</td>
@@ -175,7 +175,8 @@ $(function(){
 	
 	$(':button.frames-received').on('click', function(){
 		$.post(window.location.href, {frame_received: true}, function(){
-			$('table.frames').hide().next('table.pictures').show();
+			//$('table.frames').hide().next('table.pictures').show();
+			window.location.search = 'action=recept-confirmation&step=picture'
 		})
 	});
 
