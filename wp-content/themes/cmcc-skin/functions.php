@@ -76,7 +76,7 @@ add_action('init', function(){
 		'show_ui'=>false
 	));
 	
-	isset($_POST['sheets']) && add_action('save_post', import_site_decoration_sheet);
+	isset($_POST['sheets']) && add_action('save_post', 'import_site_decoration_sheet');
 	add_action('save_post', 'update_metas');
 	
 	function update_metas($post_id){
@@ -193,7 +193,7 @@ add_action('init', function(){
 					foreach($table as $row){
 						!isset($frames[$row['器架名称']]) && $frames[$row['器架名称']] = array('quantity'=>0, 'received'=>false, 'pictures_received'=>false, 'pictures'=>array());
 						$frames[$row['器架名称']]['quantity'] ++;
-						$frames[$row['器架名称']]['pictures'][] = array('position'=>$row['画面位置'], 'received'=>false);
+						$row['画面位置'] && $frames[$row['器架名称']]['pictures'][] = array('position'=>$row['画面位置'], 'received'=>false);
 					}
 
 					update_post_meta($site_decoration_id, 'frames', json_encode($frames, JSON_UNESCAPED_UNICODE));
