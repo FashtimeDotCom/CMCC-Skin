@@ -11,7 +11,7 @@ $data = array(
 		array(
 			'name'=>'发布',
 			'type'=>'view',
-			'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/latest-decoration/')
+			'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/site_decoration/')
 		),
 		array(
 			'name'=>'签收',
@@ -36,7 +36,7 @@ $data = array(
 		array(
 			'name'=>'汇总',
 			'type'=>'view',
-			'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/latest-decoration?action=total-result'),
+			'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/decoration/?action=result'),
 		),
 	)
 );

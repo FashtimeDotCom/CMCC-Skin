@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title><?=wp_title(' - ', false, 'right') . get_bloginfo('title')?></title>
-		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
 		<?php wp_head(); ?>
 	</head>
 	<body <?php body_class(); ?>>

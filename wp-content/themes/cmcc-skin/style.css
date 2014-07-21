@@ -141,11 +141,6 @@ select {
 	text-align: center;
 }
 
-.page-site-setup-sample .table.detail>tbody>tr>td a {
-	color: #000;
-	font-size: 15px;
-}
-
 .page-site-setup-sample h2 {
 	text-align: center;
 }
@@ -206,6 +201,11 @@ header.recept h1 {
 
 .table.detail>tbody>tr>td {
 	background: #dbdbdb;
+}
+
+.table.detail>tbody>tr>td a {
+	color: #000;
+	font-size: 15px;
 }
 
 .table.detail>tbody>tr>td.active, .table.detail>tbody>tr>th.active {
