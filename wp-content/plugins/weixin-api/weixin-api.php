@@ -3,7 +3,7 @@
  * Plugin Name: Weixin API
  * Plugin URI: 
  * Description: 在WordPress中调用微信公众账号API，实现用户鉴权，微信支付，菜单更新等功能
- * Version: 0.2
+ * Version: 0.3
  * Author: Uice Lu
  * Author URI: https://cecilia.uice.lu/
  * License: 
@@ -55,6 +55,11 @@ class WeixinAPI {
 
 	}
 	
+	function call($url){
+//		error_log('Weixin API called: ' . $url);
+		return file_get_contents($url);
+	}
+	
 	/**
 	 * 获得站点到微信的access_token
 	 * 并缓存于站点数据库
@@ -74,7 +79,7 @@ class WeixinAPI {
 			'secret'=>$this->app_secret
 		);
 		
-		$return = json_decode(file_get_contents('https://api.weixin.qq.com/cgi-bin/token?' . http_build_query($query_args)));
+		$return = json_decode($this->call('https://api.weixin.qq.com/cgi-bin/token?' . http_build_query($query_args)));
 		
 		if($return->access_token){
 			update_option('wx_access_token', json_encode(array('token'=>$return->access_token, 'expires_at'=>time() + $return->expires_in - 60)));
@@ -102,9 +107,48 @@ class WeixinAPI {
 		
 		$url .= http_build_query($query_vars);
 		
-		$user_info = json_decode(file_get_contents($url));
+		$user_info = json_decode($this->call($url));
 		
 		return $user_info;
+		
+	}
+	
+	/**
+	 * 根据open_id自动在系统中查找或注册用户，并获得微信用户信息
+	 * 仅在用户与公众账号发生消息交互的时候才可以使用
+	 */
+	function loggin($open_id){
+		
+		$users = get_users(array('meta_key'=>'wx_openid','meta_value'=>$open_id));
+
+		if(!$users){
+			$user_info = $this->get_user_info($open_id);
+			$user_id = wp_create_user($user_info->nickname, $open_id);
+			add_user_meta($user_id, 'wx_openid', $open_id, true);
+			add_user_meta($user_id, 'sex', $user_info->sex, true);
+			add_user_meta($user_id, 'country', $user_info->country, true);
+			add_user_meta($user_id, 'province', $user_info->province, true);
+			add_user_meta($user_id, 'language', $user_info->language, true);
+			add_user_meta($user_id, 'headimgurl', $user_info->headimgurl, true);
+			add_user_meta($user_id, 'subscribe_time', $user_info->subscribe_time, true);
+		}
+		else{
+			$user_id = $users[0]->ID;
+			if($users[0]->user_login === substr($open_id, -8, 8)){
+				$user_info = $this->get_user_info($open_id);
+				update_user_meta($user_id, 'nickname', $user_info->nickname);
+				add_user_meta($user_id, 'sex', $user_info->sex, true);
+				add_user_meta($user_id, 'country', $user_info->country, true);
+				add_user_meta($user_id, 'province', $user_info->province, true);
+				add_user_meta($user_id, 'language', $user_info->language, true);
+				add_user_meta($user_id, 'headimgurl', $user_info->headimgurl, true);
+				add_user_meta($user_id, 'subscribe_time', $user_info->subscribe_time, true);
+			}
+		}
+		
+		wp_set_current_user($user_id);
+		
+		return $user_id;
 		
 	}
 	
@@ -168,7 +212,7 @@ class WeixinAPI {
 			'grant_type'=>'authorization_code'
 		);
 
-		$auth_result = json_decode(file_get_contents($url . http_build_query($query_args)));
+		$auth_result = json_decode($this->call($url . http_build_query($query_args)));
 
 		if(!isset($auth_result->openid)){
 			error_log('Get OAuth token failed. ' . json_encode($auth_result));
@@ -199,7 +243,7 @@ class WeixinAPI {
 		
 		$url .= http_build_query($query_args);
 		
-		$auth_result = json_decode(file_get_contents($url));
+		$auth_result = json_decode($this->call($url));
 		
 		return $auth_result;
 	}
@@ -250,7 +294,7 @@ class WeixinAPI {
 		
 		$url .= http_build_query($query_vars);
 		
-		$user_info = json_decode(file_get_contents($url));
+		$user_info = json_decode($this->call($url));
 		
 		return $user_info;
 	}
@@ -354,10 +398,17 @@ class WeixinAPI {
 	 * @param int $expires_in
 	 * @return array 二维码信息，包括获取的URL和有效期等
 	 */
-	function generate_qr_code($scene_id, $action_info = array(), $action_name = 'QR_SCENE', $expires_in = 1800){
-		// TODO scene_id 应该要可以自动生成
+	function generate_qr_code($action_info = array(), $action_name = 'QR_SCENE', $expires_in = '1800'){
 		// TODO 过期scene应该要回收
+		// TODO scene id 到达100000后无法重置
+		// TODO QR_LIMIT_SCENE只能有100000个
 		$url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $this->get_access_token();
+		
+		$scene_id = get_option('wx_last_qccode_scene_id', 0) + 1;
+		
+		if($scene_id > 100000){
+			$scene_id = 1; // 强制重置
+		}
 		
 		$action_info['scene']['scene_id'] = $scene_id;
 		
@@ -392,6 +443,7 @@ class WeixinAPI {
 		);
 		
 		update_option('wx_qrscene_' . $scene_id, json_encode($qrcode));
+		update_option('wx_last_qccode_scene_id', $scene_id);
 		
 		return $qrcode;
 		
@@ -402,7 +454,7 @@ class WeixinAPI {
 	 */
 	function remove_menu(){
 		$url = 'https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=' . $this->get_access_token();
-		return json_decode(file_get_contents($url));
+		return json_decode($this->call($url));
 	}
 	
 	/**
@@ -429,9 +481,49 @@ class WeixinAPI {
 		
 	}
 	
+	/**
+	 * 获得微信公众号会话界面菜单
+	 */
 	function get_menu(){
-		$menu = json_decode(file_get_contents('https://api.weixin.qq.com/cgi-bin/menu/get?access_token=' . $this->get_access_token()));
+		$menu = json_decode($this->call('https://api.weixin.qq.com/cgi-bin/menu/get?access_token=' . $this->get_access_token()));
 		return $menu;
+	}
+	
+	function onmessage($type, $callback){
+		
+		if(!isset($GLOBALS["HTTP_RAW_POST_DATA"])){
+			return false;
+		}
+		
+		xml_parse_into_struct(xml_parser_create(), $GLOBALS["HTTP_RAW_POST_DATA"], $message);
+
+		$message = array_column($message, 'value', 'tag');
+
+		if(!is_array($message)){
+			error_log('XML parse error.');
+		}
+
+		// 事件消息			
+		if($message['MSGTYPE'] === $type){
+			$callback($message);
+		}
+		
+		return $this;
+		
+	}
+	
+	function reply_message($reply_message_content, $received_message){
+		require plugin_dir_path(__FILE__) . 'template/message_reply.php';
+	}
+	
+	function reply_post_message($reply_posts, $received_message){
+		!is_array($reply_posts) && $reply_posts = array($reply_posts);
+		$reply_posts_count = count($reply_posts);
+		require plugin_dir_path(__FILE__) . 'template/post_message_reply.php';
+	}
+	
+	function transfer_customer_service($received_message){
+		require plugin_dir_path(__FILE__) . 'template/transfer_customer_service.php';
 	}
 	
 }
