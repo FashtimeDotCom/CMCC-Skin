@@ -28,6 +28,7 @@ get_header(); ?>
 <table class="table table-bordered detail summary">
 	<tbody>
 		<?php foreach($site_decorations as $site_decoration){ ?>
+		<?php if(isset($_GET['decoration_tag']) && !in_array($_GET['decoration_tag'], wp_get_post_tags(get_post_meta($site_decoration->ID, 'decoration', true), array('fields'=>'names')))) continue;?>
 		<tr>
 			<td><a href="<?php if(isset($_GET['action']) && $_GET['action'] === 'recept-confirmation'){ ?><?=get_the_permalink(get_the_ID())?>?action=recept-confirmation&step=<?=$_GET['step']?><?php }else{ ?><?=get_the_permalink(get_post_meta($site_decoration->ID, 'decoration', true))?><?php } ?>"><?=$site_decoration->post_title?></a></td>
 		</tr>
