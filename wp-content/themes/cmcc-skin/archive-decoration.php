@@ -5,21 +5,24 @@
  */
 $wx = new WeixinAPI();
 
-$auth_info = $wx->get_oauth_info();
-$users = get_users(array('meta_key'=>'wx_openid','meta_value'=>$auth_info->openid));
+if(!is_user_logged_in()){
+	$auth_info = $wx->get_oauth_info();
+	$users = get_users(array('meta_key'=>'wx_openid','meta_value'=>$auth_info->openid));
 
-if(!$users){
-	$query_args = array(
-		'access_token'=>$auth_info->access_token,
-		'forward_to'=>urlencode_deep(current_url())
-	);
-	header('Location: ' . site_url() . '/site-signup/?' . build_query($query_args));
-	exit;
+	if(!$users){
+		$query_args = array(
+			'access_token'=>$auth_info->access_token,
+			'forward_to'=>urlencode_deep(current_url())
+		);
+		header('Location: ' . site_url() . '/site-signup/?' . build_query($query_args));
+		exit;
+	}
+	
+	$user_id = $users[0]->ID;
+
+	wp_set_current_user($user_id);
+
 }
-
-$user_id = $users[0]->ID;
-
-wp_set_current_user($user_id);
 
 if($_GET['action'] === 'result' && !current_user_can('view_total_result') && !current_user_can('view_region_result')){
 	header('Location: ' . $wx->generate_oauth_url(site_url() . '/my-latest-decoration/?action=result'));

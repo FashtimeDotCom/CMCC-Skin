@@ -14,12 +14,12 @@ $data = array(
 				array(
 					'name'=>'换装发布',
 					'type'=>'view',
-					'url'=>$wx->generate_oauth_url(site_url() . '/site_decoration/')
+					'url'=>$wx->generate_oauth_url(site_url() . '/site_decoration/?tag=画面')
 				),
 				array(
 					'name'=>'物料发布',
 					'type'=>'view',
-					'url'=>$wx->generate_oauth_url(site_url() . '/site_decoration/')
+					'url'=>$wx->generate_oauth_url(site_url() . '/site_decoration/?tag=器架')
 				),
 			)
 		),

@@ -4,6 +4,8 @@
  */
 $wx = new WeixinAPI();
 
+$wx->verify();
+
 $wx->onmessage('event', function($message){
 	global $wx;
 	if($message['EVENT'] === 'CLICK' && $message['EVENTKEY'] === 'error_report'){

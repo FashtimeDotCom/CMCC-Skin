@@ -30,7 +30,7 @@ add_action('init', function(){
 			remove_meta_box( 'postimagediv', 'site', 'side');
 			add_meta_box('postimagediv', __('营业厅点位图'), 'post_thumbnail_meta_box', 'site', 'side');
 		},
-		'menu_icon'=>'dashicons-admin-home'
+		'menu_icon'=>'dashicons-admin-home',
 	));
 	
 	register_post_type('decoration', array(
@@ -46,6 +46,7 @@ add_action('init', function(){
 			'not_found'=>'未找到换装'
 		),
 		'public'=>true,
+		'taxonomies'=>array('post_tag'),
 		'has_archive'=>true,
 		'supports'=>array('title','thumbnail'),
 		'menu_icon'=>'dashicons-art',
