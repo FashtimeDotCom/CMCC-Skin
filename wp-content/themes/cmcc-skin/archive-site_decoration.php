@@ -18,7 +18,7 @@ if(!$users){
 
 $user_id = $users[0]->ID;
 $site_id = get_user_meta($user_id, 'site');
-$site_decorations = get_posts(array('post_type'=>'site_decoration', 'posts_per_page'=>1, 'meta_key'=>'site_id', 'meta_value'=>$site_id));
+$site_decorations = get_posts(array('post_type'=>'site_decoration', 'posts_per_page'=>-1, 'meta_key'=>'site_id', 'meta_value'=>$site_id));
 get_header(); ?>
 
 <header>
