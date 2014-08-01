@@ -29,7 +29,7 @@ get_header(); ?>
 	<tbody>
 		<?php foreach($site_decorations as $site_decoration){ ?>
 		<tr>
-			<td><a href="<?=get_the_permalink(get_post_meta($site_decoration->ID, 'decoration', true))?>"><?=$site_decoration->post_title?></a></td>
+			<td><a href="<?php if(isset($_GET['action']) && $_GET['action'] === 'recept-confirmation'){ ?><?=get_the_permalink(get_the_ID())?>?action=recept-confirmation&step=<?=$_GET['step']?><?php }else{ ?><?=get_the_permalink(get_post_meta($site_decoration->ID, 'decoration', true))?><?php } ?>"><?=$site_decoration->post_title?></a></td>
 		</tr>
 		<?php } ?>
 	</tbody>

@@ -1,27 +1,56 @@
-<header class="recept">
-	<h1>中国移动上海公司营业厅物料签收单</h1>
-</header>
+<div class="frames"<?php if(!isset($_GET['step']) || $_GET['step'] !== 'frame'){ ?> style="display:none"<?php } ?>>
+	<header class="recept">
+		<h1>中国移动上海公司营业厅物料签收单</h1>
+	</header>
 
-<table id="receipt-summary" class="table table-bordered summary">
-	<tbody>
-		<tr>
-			<th>区域</th>
-			<td><?=get_post_meta($site_id, 'region', true)?></td>
-			<th>厅经理确认</th>
-			<td><?=get_post_meta($site_id, 'manager', true)?></td>
-		</tr>
-		<tr>
-			<th>厅名</th>
-			<td><?=get_post($site_id)->post_title?></td>
-			<th>日期</th>
-			<td><?=get_the_date('Y-m-d')?></td>
-		</tr>
-		<tr>
-			<th>签收须知</th>
-			<td colspan="3" class="text-left">确认所收物料及数量，确认完毕后，在该物料右侧确认栏中点击以勾选。所有物料全部确认勾选后，才能点击确认签收。</td>
-		</tr>
-	</tbody>
-</table>
+	<table id="receipt-summary" class="table table-bordered summary">
+		<tbody>
+			<tr>
+				<th>区域</th>
+				<td><?=get_post_meta($site_id, 'region', true)?></td>
+				<th>厅经理确认</th>
+				<td><?=get_post_meta($site_id, 'manager', true)?></td>
+			</tr>
+			<tr>
+				<th>厅名</th>
+				<td><?=get_post($site_id)->post_title?></td>
+				<th>日期</th>
+				<td><?=get_the_date('Y-m-d')?></td>
+			</tr>
+			<tr>
+				<th>签收须知</th>
+				<td colspan="3" class="text-left">确认所收物料及数量，确认完毕后，在该物料右侧确认栏中点击以勾选。所有物料全部确认勾选后，才能点击确认签收。</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="frames"<?php if(!isset($_GET['step']) || $_GET['step'] !== 'picture'){ ?> style="display:none"<?php } ?>>
+	<header class="recept">
+		<h1>中国移动上海公司营业厅画面签收单</h1>
+	</header>
+
+	<table id="receipt-summary" class="table table-bordered summary">
+		<tbody>
+			<tr>
+				<th>区域</th>
+				<td><?=get_post_meta($site_id, 'region', true)?></td>
+				<th>厅经理确认</th>
+				<td><?=get_post_meta($site_id, 'manager', true)?></td>
+			</tr>
+			<tr>
+				<th>厅名</th>
+				<td><?=get_post($site_id)->post_title?></td>
+				<th>日期</th>
+				<td><?=get_the_date('Y-m-d')?></td>
+			</tr>
+			<tr>
+				<th>签收须知</th>
+				<td colspan="3" class="text-left">确认所收物料及数量，确认完毕后，在该物料右侧确认栏中点击以勾选。所有物料全部确认勾选后，才能点击确认签收。</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 
 <table id="receipt-detail" class="table table-bordered frames"<?php if(!isset($_GET['step']) || $_GET['step'] !== 'frame'){ ?> style="display:none"<?php } ?>>
 	<thead>

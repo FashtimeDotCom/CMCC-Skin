@@ -9,17 +9,17 @@ $wx->remove_menu();
 $data = array(
 	'button'=>array(
 		array(
-			'name'=>'发布',
+			'name'=>'通知',
 			'sub_button'=>array(
 				array(
 					'name'=>'换装发布',
 					'type'=>'view',
-					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/site_decoration/')
+					'url'=>$wx->generate_oauth_url(site_url() . '/site_decoration/')
 				),
 				array(
 					'name'=>'物料发布',
 					'type'=>'view',
-					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/site_decoration/')
+					'url'=>$wx->generate_oauth_url(site_url() . '/site_decoration/')
 				),
 			)
 		),
@@ -29,17 +29,17 @@ $data = array(
 				array(
 					'type'=>'view',
 					'name'=>'器架签收',
-					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/my-latest-decoration/?action=recept-confirmation&step=frame'),
+					'url'=>$wx->generate_oauth_url(site_url() . '/site_decoration/?action=recept-confirmation&step=frame'),
 				),
 				array(
 					'type'=>'view',
 					'name'=>'画面签收',
-					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/my-latest-decoration/?action=recept-confirmation&step=picture'),
+					'url'=>$wx->generate_oauth_url(site_url() . '/site_decoration/?action=recept-confirmation&step=picture'),
 				),
 				array(
 					'type'=>'view',
 					'name'=>'上传',
-					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/my-latest-decoration/?action=result-upload')
+					'url'=>$wx->generate_oauth_url(site_url() . '/site_decoration/?action=result-upload')
 				),
 			)
 		),
@@ -49,7 +49,7 @@ $data = array(
 				array(
 					'name'=>'汇总',
 					'type'=>'view',
-					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/decoration/?action=result'),
+					'url'=>$wx->generate_oauth_url(site_url() . '/decoration/?action=result'),
 				),
 				array(
 					'name'=>'报障',
