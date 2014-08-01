@@ -3,7 +3,7 @@
  * Sub Template in Single "decoration"
  */
 $regions = json_decode(get_option('regions'));
-$site_decorations = get_posts(array('post_type'=>'site_decoration','posts_per_page'=>-1,'decoration'=>get_the_ID()));
+$site_decorations = get_posts(array('post_type'=>'site_decoration', 'posts_per_page'=>-1, 'meta_key'=>'decoration', 'meta_value'=>get_the_ID()));
 $region_result = array(
 //	'<region_name>'=>array('total'=>0, 'received'=>0, 'reviewed'=>0);
 );
