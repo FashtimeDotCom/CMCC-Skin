@@ -21,8 +21,8 @@ $user_id = $users[0]->ID;
 
 wp_set_current_user($user_id);
 
-if($_GET['action'] === 'result' && !current_user_can('review_site_result')){
-	echo '你没有权限查看换装结果';
+if($_GET['action'] === 'result' && !current_user_can('view_total_result') && !current_user_can('view_region_result')){
+	header('Location: ' . $wx->generate_oauth_url(site_url() . '/my-latest-decoration/?action=result'));
 	exit;
 }
 
@@ -36,7 +36,7 @@ get_header();
 	<tbody>
 		<?php while(have_posts()): the_post(); ?>
 		<tr>
-			<td><a href="<?php the_permalink(); ?>?action=total-result"><?php the_title(); ?></a></td>
+			<td><a href="<?php the_permalink(); ?>?action=<?php if(current_user_can('view_total_result')){ ?>total-result<?php }else{ ?>region-result&region=<?=get_user_meta(get_current_user_id(), 'region', true)?><?php } ?>"><?php the_title(); ?></a></td>
 		</tr>
 		<?php endwhile; ?>
 	</tbody>

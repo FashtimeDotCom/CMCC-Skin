@@ -281,7 +281,14 @@ add_action('admin_notices', function(){
 });
 
 add_action('admin_init', function(){
-	get_role('editor')->add_cap('review_site_result');
+	// “编辑”即市场部管理员
+	$editor = get_role('editor');
+	$editor->add_cap('review_site_result');
+	$editor->add_cap('view_total_result');
+	// “作者”即分公司管理员
+	$author = get_role('author');
+	$author->add_cap('view_region_result');
+	// "订阅者"是营业厅负责人
 });
 
 // TODO 这么做只是为了使用中文名称注册营业厅管理人员，存在一些安全性问题

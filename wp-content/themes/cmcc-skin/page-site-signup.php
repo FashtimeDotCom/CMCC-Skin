@@ -16,6 +16,7 @@ if(isset($_POST['signup'])){
 	add_user_meta($user_id, 'wx_openid', $auth_info->openid, true);
 	add_user_meta($user_id, 'phone', $_POST['phone']);
 	add_user_meta($user_id, 'site', $site_id);
+	add_user_meta($user_id, 'region', get_post_meta($site_id, 'region', true));
 	
 	wp_set_current_user($user_id);
 	wp_set_auth_cookie($user_id);
