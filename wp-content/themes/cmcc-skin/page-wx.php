@@ -3,16 +3,11 @@
  * 微信API响应页面，用来处理来自微信的请求
  */
 $wx = new WeixinAPI();
-		
-// 验证请求来自微信
-$wx->verify();
 
-if(isset($GLOBALS["HTTP_RAW_POST_DATA"])){
-	xml_parse_into_struct(xml_parser_create(), $GLOBALS["HTTP_RAW_POST_DATA"], $post);
-
-	$post=array_column($post,'value','tag');
-
-	if(!is_array($post)){
-		exit('XML parse error.');
+$wx->onmessage('event', function($message){
+	global $wx;
+	if($message['EVENT'] === 'CLICK' && $message['EVENTKEY'] === 'error_report'){
+		$text = "本页将作为营业厅报修通道\n报修将根据以下四种类别进行报修\n一、土建工程类\n二、设备类\n三、道具类\n四、POP类";
+		$wx->reply_message($text, $message);
 	}
-}
+});

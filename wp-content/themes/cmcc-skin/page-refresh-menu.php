@@ -45,8 +45,18 @@ $data = array(
 		),
 		array(
 			'name'=>'汇总',
-			'type'=>'view',
-			'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/decoration/?action=result'),
+			'sub_button'=>array(
+				array(
+					'name'=>'汇总',
+					'type'=>'view',
+					'url'=>$wx->generate_oauth_url('http://cmcc.uice.lu/decoration/?action=result'),
+				),
+				array(
+					'name'=>'报障',
+					'type'=>'click',
+					'key'=>'error_report'
+				),
+			),
 		),
 	)
 );
