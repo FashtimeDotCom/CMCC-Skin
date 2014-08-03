@@ -9,7 +9,7 @@ for($group = 0; $group < ceil( count($pictures) / 6 ); $group ++){
 }
 ?>
 <header>
-	<h1>2014移动营业厅晚春换装</h1>
+	<h1><?php the_title(); ?></h1>
 </header>
 
 <section id="pictures" class="swipe">

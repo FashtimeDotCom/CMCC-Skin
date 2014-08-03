@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 <header>
-	<h1>物料 / 画面安装规范</h1>
+	<h1>器架 / 画面安装规范</h1>
 </header>
 
 <?php if(empty($_GET['ID'])){ $examples = get_posts(array('posts_per_page'=>-1)); ?>
