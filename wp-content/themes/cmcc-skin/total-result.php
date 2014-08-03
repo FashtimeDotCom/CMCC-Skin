@@ -4,6 +4,7 @@
  */
 $regions = json_decode(get_option('regions'));
 $site_decorations = get_posts(array('post_type'=>'site_decoration', 'posts_per_page'=>-1, 'meta_key'=>'decoration', 'meta_value'=>get_the_ID()));
+$decoration_tags = wp_get_post_tags(get_the_ID(), array('fields'=>'names'));
 $region_result = array(
 //	'<region_name>'=>array('total'=>0, 'received'=>0, 'reviewed'=>0);
 );
@@ -17,7 +18,8 @@ foreach($site_decorations as $site_decoration){
 	
 	$region_result[$region]['total'] ++;
 	
-	if($frames_received && $pictures_received){
+	// 若有本换装器架，则器架签收作为判断条件；若本换装有画面，则画面签收作为判断条件；两条件取AND判断
+	if((!in_array('器架', $decoration_tags) || $frames_received) && (!in_array('画面', $decoration_tags) || $pictures_received)){
 		$region_result[$region]['received'] ++;
 	}
 	

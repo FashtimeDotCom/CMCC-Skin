@@ -5,6 +5,7 @@
 
 $region = $_GET['region'];
 $site_decorations = get_posts(array('post_type'=>'site_decoration', 'meta_query'=>array(array('key'=>'decoration', 'value'=>get_the_ID()), array('key'=>'site_region', 'value'=>$region)), 'posts_per_page'=>-1));
+$decoration_tags = wp_get_post_tags(get_the_ID(), array('fields'=>'names'));
 ?>
 <header>
 	<h1><?=$region?></h1>
@@ -14,8 +15,8 @@ $site_decorations = get_posts(array('post_type'=>'site_decoration', 'meta_query'
 	<thead>
 		<tr>
 			<th>营业厅名称</th>
-			<td>物料</td>
-			<td>画面</td>
+			<?php if(in_array('器架', $decoration_tags)){ ?><td>物料签收</td><?php } ?>
+			<?php if(in_array('画面', $decoration_tags)){ ?><td>画面签收</td><?php } ?>
 			<td>审核</td>
 		</tr>
 	</thead>
@@ -28,8 +29,8 @@ $site_decorations = get_posts(array('post_type'=>'site_decoration', 'meta_query'
 					<span class="arrow">&raquo;</span>
 				</a>
 			</td>
-			<td><?php if(get_post_meta($site_decoration->ID, 'frames_received', true)){ ?><span class="fa fa-check"></span><?php } ?></td>
-			<td><?php if(get_post_meta($site_decoration->ID, 'pictures_received', true)){ ?><span class="fa fa-check"></span><?php } ?></td>
+			<?php if(in_array('器架', $decoration_tags)){ ?><td><?php if(get_post_meta($site_decoration->ID, 'frames_received', true)){ ?><span class="fa fa-check"></span><?php } ?></td><?php } ?>
+			<?php if(in_array('画面', $decoration_tags)){ ?><td><?php if(get_post_meta($site_decoration->ID, 'pictures_received', true)){ ?><span class="fa fa-check"></span><?php } ?></td><?php } ?>
 			<td><?php if(get_post_meta($site_decoration->ID, 'reviewed', true)){ ?><span class="fa fa-check"></span><?php } ?></td>
 		</tr>
 		<?php } ?>

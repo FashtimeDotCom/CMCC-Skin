@@ -4,6 +4,11 @@ $decoration_id = get_post_meta(get_the_ID(), 'decoration', true);
 $frames = json_decode(get_post_meta(get_the_ID(), 'frames', true));
 $frame_types = json_decode(get_option('frame_types'));
 
+$decoration_tags = wp_get_post_tags($decoration_id, array('fields'=>'names'));
+if($_GET['step'] === 'picture' && !in_array('画面', $decoration_tags)){
+	header('Location: ' . get_the_permalink(get_the_ID()) . '?action=result-upload');
+}
+
 $unreceived = array('frames'=>0, 'pictures'=>0);
 
 foreach($frames as $name => $frame){
@@ -17,6 +22,7 @@ foreach($frames as $name => $frame){
 	}
 }
 // TODO 需要验证身份
+// TODO 并发勾选时，数据库中frames meta项的存取可能发生交错，导致脏数据保存
 if($_SERVER['REQUEST_METHOD'] === 'POST' && (empty($_GET['action']) || $_GET['action'] === 'recept-confirmation')){
 	
 	if(isset($_POST['frame_received'])){
