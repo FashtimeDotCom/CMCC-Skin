@@ -14,12 +14,12 @@ $data = array(
 				array(
 					'name'=>'换装发布',
 					'type'=>'view',
-					'url'=>$wx->generate_oauth_url(site_url() . '/site_decoration/?decoration_tag=' . urlencode('画面'))
+					'url'=>site_url() . '/site_decoration/?decoration_tag=' . urlencode('画面')
 				),
 				array(
 					'name'=>'物料发布',
 					'type'=>'view',
-					'url'=>$wx->generate_oauth_url(site_url() . '/site_decoration/?decoration_tag=' . urlencode('器架'))
+					'url'=>site_url() . '/site_decoration/?decoration_tag=' . urlencode('器架')
 				),
 			)
 		),
@@ -39,7 +39,7 @@ $data = array(
 				array(
 					'type'=>'view',
 					'name'=>'上传',
-					'url'=>$wx->generate_oauth_url(site_url() . '/site_decoration/?action=result-upload')
+					'url'=>site_url() . '/site_decoration/?action=result-upload'
 				),
 			)
 		),
@@ -49,7 +49,7 @@ $data = array(
 				array(
 					'name'=>'汇总',
 					'type'=>'view',
-					'url'=>$wx->generate_oauth_url(site_url() . '/decoration/?action=result'),
+					'url'=>site_url() . '/decoration/?action=result',
 				),
 				array(
 					'name'=>'报障',

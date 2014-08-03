@@ -56,7 +56,7 @@ class WeixinAPI {
 	}
 	
 	function call($url){
-//		error_log('Weixin API called: ' . $url);
+		error_log('Weixin API called: ' . $url);
 		return file_get_contents($url);
 	}
 	
@@ -195,9 +195,15 @@ class WeixinAPI {
 	 */
 	function get_oauth_token($code = null){
 		
+		if(is_user_logged_in() && $auth_result = get_user_meta(get_current_user_id(), 'oauth_info', true)){
+			if(json_decode($auth_result)->expires_at >= time()){
+				return $auth_result->access_token;
+			}
+		}
+		
 		if(is_null($code)){
 			if(empty($_GET['code'])){
-				error_log('Getting OAuth access token without code.');
+				header('Location: ' . $this->generate_oauth_url(site_url() . $_SERVER['REQUEST_URI']));
 				exit;
 			}
 			$code = $_GET['code'];
@@ -220,9 +226,12 @@ class WeixinAPI {
 		}
 		
 		$auth_result->expires_at = $auth_result->expires_in + time();
-		// TODO 每次使用code重新授权都会重新存入一个token，产生大量垃圾文件，考虑存入wp_usermeta表，根据usermeta反查用户。
-		// 但菜单又是一个静态链接，只能是带code的授权url
-		update_option('wx_oauth_token_' . $auth_result->access_token, json_encode($auth_result));
+		
+		if(is_user_logged_in()){
+			update_user_meta(get_current_user_id(), 'oauth_info', json_encode($auth_result));
+		}else{
+			update_option('wx_oauth_token_' . $auth_result->access_token, json_encode($auth_result));
+		}
 		
 		return $auth_result;
 	}
@@ -261,21 +270,20 @@ class WeixinAPI {
 		}
 		
 		// 如果没能获得access token，我们猜这是一个OAuth授权请求，直接根据code获得OAuth信息
-		if(empty($access_token)){
+		if (empty($access_token)) {
 			return $this->get_oauth_token();
 		}
-		
+
 		$auth_info = json_decode(get_option('wx_oauth_token_' . $access_token));
-		
+
 		// 从数据库中拿到的access token发现是过期的，那么需要刷新
-		if($auth_info->expires_at <= time()){
+		if ($auth_info->expires_at <= time()) {
 			$auth_info = $this->refresh_oauth_token($auth_info->refresh_token);
 		}
-		
+
 		return $auth_info;
-		
 	}
-	
+
 	/**
 	 * OAuth方式获得用户信息
 	 * 注意，access token的scope必须包含snsapi_userinfo，才能调用本函数获取
