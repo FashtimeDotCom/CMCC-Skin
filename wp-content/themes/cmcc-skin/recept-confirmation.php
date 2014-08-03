@@ -150,12 +150,10 @@
 <script type="text/javascript">
 (function($){
 $(function(){
-	// TODO 没有签收完成时，在按钮和按钮的点击效果上有所体现
-	// TODO 没有打勾但可以打勾的框应该显示淡淡的钩
 	// TODO 打勾失败的提示
 	// TODO 画面签收，不展开应该不能打勾
 	// TODO 画面签收，查看画面大图后返回，返回到了框架接受的页面，考虑通过写入history解决
-	$('td.check').on('click', function(){
+	$('td.check').on('touchend', function(){
 		
 		var checkmark = $(this).children('.checkmark');
 		
