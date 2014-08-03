@@ -14,12 +14,12 @@ $data = array(
 				array(
 					'name'=>'换装发布',
 					'type'=>'view',
-					'url'=>$wx->generate_oauth_url(site_url() . '/site_decoration/?decoration_tag=画面')
+					'url'=>$wx->generate_oauth_url(site_url() . '/site_decoration/?decoration_tag=' . urlencode('画面'))
 				),
 				array(
 					'name'=>'物料发布',
 					'type'=>'view',
-					'url'=>$wx->generate_oauth_url(site_url() . '/site_decoration/?decoration_tag=器架')
+					'url'=>$wx->generate_oauth_url(site_url() . '/site_decoration/?decoration_tag=' . urlencode('器架'))
 				),
 			)
 		),
@@ -29,12 +29,12 @@ $data = array(
 				array(
 					'type'=>'view',
 					'name'=>'器架签收',
-					'url'=>$wx->generate_oauth_url(site_url() . '/site_decoration/?action=recept-confirmation&step=frame'),
+					'url'=>site_url() . '/site_decoration/?decoration_tag=' . urlencode('器架') . '&action=recept-confirmation&step=frame',
 				),
 				array(
 					'type'=>'view',
 					'name'=>'画面签收',
-					'url'=>$wx->generate_oauth_url(site_url() . '/site_decoration/?action=recept-confirmation&step=picture'),
+					'url'=>site_url() . '/site_decoration/?decoration_tag=' . urlencode('画面') . '&action=recept-confirmation&step=picture',
 				),
 				array(
 					'type'=>'view',
