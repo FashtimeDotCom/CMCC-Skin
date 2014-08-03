@@ -5,19 +5,25 @@
 $wx = new WeixinAPI();
 
 $auth_info = $wx->get_oauth_info();
-$users = get_users(array('meta_key'=>'wx_openid','meta_value'=>$auth_info->openid));
 
-if(!$users){
-	$query_args = array(
-		'access_token'=>$auth_info->access_token,
-		'forward_to'=>urlencode_deep(current_url())
-	);
-	header('Location: ' . site_url() . '/site-signup/?' . build_query($query_args));
-	exit;
+if(!is_user_logged_in()){
+	$users = get_users(array('meta_key'=>'wx_openid','meta_value'=>$auth_info->openid));
+
+	if(!$users){
+		$query_args = array(
+			'access_token'=>$auth_info->access_token,
+			'forward_to'=>urlencode_deep(current_url())
+		);
+		header('Location: ' . site_url() . '/site-signup/?' . build_query($query_args));
+		exit;
+	}
+
+	$user_id = $users[0]->ID;
+}else{
+	$user_id = get_current_user_id();
 }
 
-$user_id = $users[0]->ID;
-$site_id = get_user_meta($user_id, 'site');
+$site_id = get_user_meta($user_id, 'site', true);
 $site_decorations = get_posts(array('post_type'=>'site_decoration', 'posts_per_page'=>1, 'meta_key'=>'site_id', 'meta_value'=>$site_id));
 
 if(empty($site_decorations)){
