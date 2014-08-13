@@ -20,6 +20,7 @@ if(!is_user_logged_in()){
 	
 	$user_id = $users[0]->ID;
 
+	wp_set_auth_cookie($user_id);
 	wp_set_current_user($user_id);
 
 }
