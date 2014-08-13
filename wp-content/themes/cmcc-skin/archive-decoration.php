@@ -32,14 +32,16 @@ if($_GET['action'] === 'result' && !current_user_can('view_total_result') && !cu
 get_header();
 ?>
 <header>
-	<h1>结果统计</h1>
+	<h1>
+		<?php if($_GET['action'] === 'requirement'){ ?>发布<?php }else{ ?>结果查看<?php } ?>
+	</h1>
 </header>
 
 <table class="table table-bordered detail summary">
 	<tbody>
 		<?php while(have_posts()): the_post(); ?>
 		<tr>
-			<td><a href="<?php the_permalink(); ?>?action=<?php if(current_user_can('view_total_result')){ ?>total-result<?php }else{ ?>region-result&region=<?=get_user_meta(get_current_user_id(), 'region', true)?><?php } ?>"><?php the_title(); ?></a></td>
+			<td><a href="<?php the_permalink(); ?>?action=<?php if(isset($_GET['action']) && $action !== 'result'){ ?><?=$_GET['action']?><?php }elseif(current_user_can('view_total_result')){ ?>total-result<?php }else{ ?>region-result&region=<?=get_user_meta(get_current_user_id(), 'region', true)?><?php } ?>"><?php the_title(); ?></a></td>
 		</tr>
 		<?php endwhile; ?>
 	</tbody>
