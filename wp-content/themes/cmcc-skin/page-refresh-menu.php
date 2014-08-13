@@ -17,7 +17,7 @@ $data = array(
 					'url'=>site_url() . '/site_decoration/?decoration_tag=' . urlencode('画面')
 				),
 				array(
-					'name'=>'物料发布',
+					'name'=>'物料下发',
 					'type'=>'view',
 					'url'=>site_url() . '/site_decoration/?decoration_tag=' . urlencode('器架')
 				),
@@ -28,17 +28,17 @@ $data = array(
 			'sub_button'=>array(
 				array(
 					'type'=>'view',
-					'name'=>'器架签收',
-					'url'=>site_url() . '/site_decoration/?decoration_tag=' . urlencode('器架') . '&action=recept-confirmation&step=frame',
-				),
-				array(
-					'type'=>'view',
-					'name'=>'画面签收',
+					'name'=>'换装确认',
 					'url'=>site_url() . '/site_decoration/?decoration_tag=' . urlencode('画面') . '&action=recept-confirmation&step=picture',
 				),
 				array(
 					'type'=>'view',
-					'name'=>'上传',
+					'name'=>'物料签收',
+					'url'=>site_url() . '/site_decoration/?decoration_tag=' . urlencode('器架') . '&action=recept-confirmation&step=frame',
+				),
+				array(
+					'type'=>'view',
+					'name'=>'实景图上传',
 					'url'=>site_url() . '/site_decoration/?action=result-upload'
 				),
 			)

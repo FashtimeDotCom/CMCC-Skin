@@ -30,9 +30,13 @@ get_header(); ?>
 
 <header>
 	<h1>
-		<?php if($_GET['action'] === 'result-upload'){ ?>结果上传<?php }else{ ?>
-		<?php	if(isset($_GET['decoration_tag'])){ echo $_GET['decoration_tag'] === '画面' ? '换装' : '物料'; }?>
-		<?php	if(isset($_GET['action']) && $_GET['action'] === 'recept-confirmation'){ ?>签收<?php }else{ ?>发布<?php } ?>
+		<?php if($_GET['action'] === 'result-upload'){ ?>实景图上传<?php } ?>
+		<?php if($_GET['action'] === 'recept-confirmation'){ ?>
+		<?php	if($_GET['decoration_tag'] === '画面'){ ?>换装确认<?php } ?>
+		<?php	if($_GET['decoration_tag'] === '器架'){ ?>物料签收<?php } ?>
+		<?php }else{ ?>
+		<?php	if($_GET['decoration_tag'] === '画面'){ ?>换装发布<?php } ?>
+		<?php	if($_GET['decoration_tag'] === '器架'){ ?>物料下发<?php } ?>
 		<?php } ?>
 	</h1>
 </header>
