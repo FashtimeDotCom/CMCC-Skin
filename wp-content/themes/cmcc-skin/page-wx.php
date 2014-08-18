@@ -9,8 +9,7 @@ $wx->verify();
 $wx->onmessage('event', function($message){
 	global $wx;
 	if($message['EVENT'] === 'CLICK' && $message['EVENTKEY'] === 'error_report'){
-		$text = "一.本页作为营业厅报障快速通道，用以解决营业厅内需要应急处理的故障信息。
-营业厅在陈述故障的原因时，请在陈述信息前括号标明故障类别。\n1.【土建工程类】\n2.【设备类】\n3.【道具类】\n4.【POP类】\n例：\n【土建工程类】天花板漏水，8月4日。";
+		$text = "本功能只接受营业厅传播类物料报障，其他报障请播1号通\n报障格式：\n营业厅-联系人-联系电话\n报障内容\n报障时间\n例：\n上海南站-XX-13916026852\n上墙灯箱不亮\n2014-08-16";
 		$wx->reply_message($text, $message);
 	}
 });

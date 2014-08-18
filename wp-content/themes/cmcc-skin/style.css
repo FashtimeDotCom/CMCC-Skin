@@ -259,6 +259,10 @@ td.check .checkmark.waiting {
 	margin: 0;
 }
 
+.result-upload .row:first-child h2, .resultupload .row:first-child h2 {
+	background: #0085d0;
+}
+
 .result-upload .row, .resultupload .row {
 	margin: 0;
 }

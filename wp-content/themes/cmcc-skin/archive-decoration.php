@@ -42,7 +42,7 @@ get_header();
 	<tbody>
 		<?php while(have_posts()): the_post(); ?>
 		<tr>
-			<td><a href="<?php the_permalink(); ?>?action=<?php if(isset($_GET['action']) && $action !== 'result'){ ?><?=$_GET['action']?><?php }elseif(current_user_can('view_total_result')){ ?>total-result<?php }else{ ?>region-result&region=<?=get_user_meta(get_current_user_id(), 'region', true)?><?php } ?>"><?php the_title(); ?></a></td>
+			<td><a href="<?php the_permalink(); ?>?action=<?php if(isset($_GET['action']) && $_GET['action'] !== 'result'){ ?><?=$_GET['action']?><?php }elseif(current_user_can('view_total_result')){ ?>total-result<?php }else{ ?>region-result&region=<?=get_user_meta(get_current_user_id(), 'region', true)?><?php } ?>"><?php the_title(); ?></a></td>
 		</tr>
 		<?php endwhile; ?>
 	</tbody>
