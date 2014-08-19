@@ -11,7 +11,7 @@ $result_photos = json_decode(get_post_meta(get_the_ID(), 'result_photos', true))
 		<div class="row">
 			<div class="col-xs-12">
 				<h2><?=$name?></h2>
-				<?php if(isset($result_photos->$slug)){ ?>
+				<?php if(isset($result_photos->$slug) && wp_get_attachment_image($result_photos->$slug, 'large')){ ?>
 				<?=wp_get_attachment_image($result_photos->$slug, 'large')?>
 				<?php }else{ ?>
 				<img class="preview empty" />
