@@ -248,6 +248,11 @@ add_action('admin_enqueue_scripts', function(){
 	wp_enqueue_script('cmcc-admin');
 });
 
+add_action('login_enqueue_scripts', function(){
+	wp_register_style('cmcc-admin', get_template_directory_uri() . '/admin/style.css');
+	wp_enqueue_style('cmcc-admin');
+});
+
 add_action('admin_head-post-new.php', 'change_thumbnail_html');
 add_action('admin_head-post.php', 'change_thumbnail_html');
 function change_thumbnail_html( $content ) {
@@ -344,3 +349,11 @@ add_filter('user_contactmethods', function($profile_fields) {
 
 	return $profile_fields;
 });
+
+ 
+add_filter('login_redirect', function($redirect_to, $request, $user){
+	if(is_array($user->roles) && in_array('editor', $user->roles)){
+		return site_url() . '/result-index/';
+	}
+    return $redirect_to;
+}, 10, 3);

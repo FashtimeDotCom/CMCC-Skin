@@ -48,3 +48,9 @@ body{
 .site-frames .frame.received, .site-frames .frame .picture.received {
 	color: #0A0;
 }
+
+.login h1 a {
+	background: url('../img/title.png') center no-repeat;
+	background-size: contain;
+	width: 100%;
+}
