@@ -11,7 +11,7 @@
 			<td><a href="<?=site_url()?>/decoration/?tag=画面&action=requirement">换装发布</a></td>
 		</tr>
 		<tr>
-			<td><a href="<?=site_url()?>/decoration/?tag=器架&action=requirement">物料发布</a></td>
+			<td><a href="<?=site_url()?>/decoration/?tag=器架&action=requirement">物料下发</a></td>
 		</tr>
 		<tr>
 			<td><a href="<?=site_url()?>/decoration/?action=result">汇总</a></td>

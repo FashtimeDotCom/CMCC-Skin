@@ -31,15 +31,15 @@ foreach($site_decorations as $site_decoration){
 ?>	
 
 <header>
-	<h1>签收换装完成情况</h1>
+	<h1><?php the_title(); ?><?php if(in_array('器架', $decoration_tags)){ ?>物料下发<?php }elseif(in_array('器架', $decoration_tags)){ ?>换装发布<?php } ?>完成情况</h1>
 </header>
 
 <table class="table table-bordered summary">
 	<thead>
 		<tr>
 			<th>区域名称</th>
-			<td>签收情况</td>
-			<td>换装情况</td>
+			<td>已签收</td>
+			<td>已审核</td>
 		</tr>
 	</thead>
 	<tbody>
