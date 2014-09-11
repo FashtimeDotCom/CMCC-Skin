@@ -2,7 +2,14 @@
 <ul class="sheet-list clearfix"<?php if(!$sheets){ ?> style="display:none"<?php } ?>>
 	<?php foreach($sheets as $sheet_id => $status){ ?>
 	<li id="<?=$sheet_id?>">
-		<p class="hide-if-no-js sheet-file"><?=get_post($sheet_id)->post_title?></p>
+		<?php
+		$sheet_name = get_post($sheet_id)->post_title;
+		if(is_null($sheet_name)){
+			unset($sheets[$sheet_id]);
+			continue;
+		}
+		?>
+		<p class="hide-if-no-js sheet-file"><?=$sheet_name?></p>
 		<p class="hide-if-no-js sheet-actions">
 			<a href="<?=wp_get_attachment_url($sheet_id)?>" class="download">下载</a>
 			<?php if($status === 'imported'){ ?>
@@ -13,6 +20,7 @@
 		</p>
 	</li>
 	<?php } ?>
+	<?php update_post_meta($post->ID, 'sheets', json_encode($sheets, JSON_UNESCAPED_UNICODE)); ?>
 	<li style="display:none" id="">
 		<p class="hide-if-no-js sheet-file"></p>
 		<p class="hide-if-no-js sheet-actions">
