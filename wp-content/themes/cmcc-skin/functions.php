@@ -148,9 +148,9 @@ add_action('init', function(){
 					$highestRow = $sheet->getHighestRow();
 
 					$header = array(); // 表头，列号和列名对照关系
-
-					for($column = 0; $column <= $highestColumn; $column++){
-						$header[$column] = $sheet->getCellByColumnAndRow($column, 1)->getValue();
+					
+					for($column = 0; $column < $highestColumn; $column++){
+						$header[$column] = (string) $sheet->getCellByColumnAndRow($column, 1)->getValue();
 					}
 
 					if(array_diff(array('器架名称', '画面位置'), $header)){
@@ -166,8 +166,8 @@ add_action('init', function(){
 
 						$row_data = array();
 
-						for($column = 0; $column <= $highestColumn; $column++){
-							$value = $sheet->getCellByColumnAndRow($column, $row)->getValue();
+						for($column = 0; $column < $highestColumn; $column++){
+							$value = (string) $sheet->getCellByColumnAndRow($column, $row)->getValue();
 							// TODO 检查画面和位置是否合法
 							$row_data[$header[$column]] = $value;
 						}
