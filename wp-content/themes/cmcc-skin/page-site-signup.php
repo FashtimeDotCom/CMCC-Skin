@@ -40,7 +40,7 @@ get_header();
 ?>
 
 <header>
-	<h1><img src="<?=get_template_directory_uri()?>/img/title.png"></h1>
+	<h1><img src="<?=get_template_directory_uri()?>/img/title.png?t=2014-9-16"></h1>
 </header>
 
 <div class="input-form">

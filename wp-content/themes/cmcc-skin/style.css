@@ -322,7 +322,7 @@ body.page-site-signup {
 .page-site-signup header h1{
 	background: #95FF00;
 	height: 75px;
-	padding-top: 17px;
+	padding-top: 0;
 }
 
 .page-site-signup .input-form {
