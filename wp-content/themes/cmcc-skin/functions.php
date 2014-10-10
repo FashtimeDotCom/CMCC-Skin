@@ -129,7 +129,11 @@ add_action('init', function(){
 				if($status === 'queued'){
 					// import excel, create site_decorations
 					$path = get_attached_file($sheet_id);
-
+					
+					if(!$path || !file_exists($path)){
+						continue;
+					}
+					
 					$excel = PHPExcel_IOFactory::load($path);
 					$sheet = $excel->getSheet();
 
@@ -154,7 +158,7 @@ add_action('init', function(){
 					}
 
 					if(array_diff(array('器架名称', '画面位置'), $header)){
-						add_user_meta(get_current_user_id(), '_admin_notice', 'error: 表格必须包含“器架名称”和画面位置2列，请检查并修改后重新上传');
+						add_user_meta(get_current_user_id(), '_admin_notice', 'error: ' . $site_name . '：表格必须包含“器架名称”和“画面位置”2列，请检查并修改后重新上传');
 						wp_delete_post($sheet_id);
 						unset($sheets[$sheet_id]);
 						continue;
