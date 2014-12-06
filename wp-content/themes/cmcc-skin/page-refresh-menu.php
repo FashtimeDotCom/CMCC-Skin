@@ -54,7 +54,7 @@ $data = array(
 				array(
 					'name'=>'报障',
 					'type'=>'click',
-					'key'=>'error_report'
+					'key'=>'ERROR_REPORT',
 				),
 			),
 		),
