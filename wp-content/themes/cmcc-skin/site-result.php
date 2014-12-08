@@ -58,8 +58,11 @@ if(isset($_GET['reviewed']) && $_GET['reviewed'] && current_user_can('review_sit
 	</div>
 	<?php } ?>
 	<div class="form-actions">
-		<?php if(current_user_can('review_site_result')){ ?>
+		<?php if(current_user_can('review_site_result') && !get_post_meta(get_the_ID(), 'reviewed', true)){ ?>
 		<button onclick="window.location.search += '&reviewed=1'" class="btn btn-success fa fa-check"> 审核通过</button>
+		<?php } ?>
+		<?php if(get_post_meta(get_the_ID(), 'reviewed', true)){ ?>
+		已审核通过
 		<?php } ?>
 	</div>
 </div>

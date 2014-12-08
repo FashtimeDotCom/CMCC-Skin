@@ -16,3 +16,17 @@ delete from wp_usermeta where user_id not in (select ID from wp_users);
 
 -- 替换半角括号为全角
 update wp_postmeta set meta_value = replace(replace(meta_value, '(', '（'), ')', '）') where meta_key = 'frames';
+
+-- 插入仅用于结果图片上传的“营业厅换装”对象
+set @decoration_name = ''; set @decoration_id = 0;
+insert into wp_posts (guid, post_title, post_type)
+select ID, concat(post_title, ' - ', @decoration_id), 'site_decoration' from wp_posts sites where sites.post_type = 'site';
+
+insert into wp_postmeta (post_id, meta_key, meta_value)
+select ID, 'decoration', @decoration_id from wp_posts where post_type = 'site_decoration' and post_title like concat('% - ', @decoration_name);
+
+insert into wp_postmeta (post_id, meta_key, meta_value)
+select ID, 'site_id', guid from wp_posts where post_type = 'site_decoration' and post_title like concat('% - ', @decoration_name);
+
+insert into wp_postmeta (post_id, meta_key, meta_value)
+select ID, 'site_region', wp_postmeta.meta_value from wp_posts inner join wp_postmeta on wp_postmeta.post_id = wp_posts.guid and wp_postmeta.meta_key = 'region' where post_type = 'site_decoration' and post_title like concat('% - ', @decoration_name);
