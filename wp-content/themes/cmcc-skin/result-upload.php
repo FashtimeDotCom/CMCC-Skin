@@ -16,14 +16,14 @@ $result_photos = json_decode(get_post_meta(get_the_ID(), 'result_photos', true))
 				<div class="upload-file" style="display:none">
 					<span class="fa fa-edit"></span>
 					<span>更换照片</span>
-					<input type="file" name="<?=$slug?>">
+					<input type="file" name="<?=$slug?>" capture="camera">
 				</div>
 				<?php }else{ ?>
 				<img class="preview empty" />
 				<div class="upload-file">
 					<span class="fa fa-plus"></span>
 					<span>上传照片</span>
-					<input type="file" name="<?=$slug?>">
+					<input type="file" name="<?=$slug?>" capture="camera">
 				</div>
 				<?php } ?>
 			</div>
